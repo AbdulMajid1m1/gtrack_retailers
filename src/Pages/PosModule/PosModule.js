@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import "./PosModule.css"
+import newRequest from '../../utils/userRequest';
+import { SnackbarContext } from '../../context/SnackbarContext';
 
 const PosModule = () => {
+  const [barcode, setBarcode] = useState('');
+  const [responseData, setResponseData] = useState(null);
+  const { openSnackbar } = useContext(SnackbarContext);
+ 
+  const handleBlur = async () => {
+      try {
+        const response = await newRequest.get(`/getGs1ProdProductsbyBarcode?barcode=${barcode}`);
+        setResponseData(response?.data);
+        console.log(response?.data);
+        // openSnackbar()
+      }
+       catch (error) {
+        openSnackbar(
+          error?.response?.data?.message ?? "something went wrong!",
+          "error"
+        );
+        console.log('Error fetching data:', error)
+        setResponseData([]);
+      }
+    };
   return (
     <div>
         <div className="p-1 h-full sm:ml-72 bg-slate-100">
@@ -17,31 +39,44 @@ const PosModule = () => {
                         <div className='h-auto w-auto px-5 py-1 text-center border-2 border-gray-400 font-bold'>
                               FG101
                         </div>
-                        <div className='h-auto w-auto px-5 py-1 text-center border-2 border-gray-400 font-bold'>
+                        {/* <div className='h-auto w-auto px-5 py-1 text-center border-2 border-gray-400 font-bold'>
                               SLIC- FACTORY SHOWROOM
-                        </div>
+                        </div> */}
                      </div>
 
                      <div className='flex justify-end items-center mr-2 gap-2'>
                         <p>INVOICE NO</p>
-                        <div className='h-8 w-auto px-5 text-center border-2 border-gray-400 font-bold'>
-                              FG101
-                        </div>
+                        <input
+                          type='text'
+                          value={"001-Branch"} 
+                          className='h-8 w-auto text-center border-2 border-gray-400' />
+                              
                      </div>
                   </div>
 
                   <div className='grid 2xl:grid-cols-4 mt-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-1'>
                       <div className='flex items-center gap-1 px-2 font-semibold'>
                         <label className='text-xs'>Transaction</label>
-                        <input type='text' className='h-8 w-full border border-gray-400'/>
+                        <input 
+                          type='text' 
+                          className='h-8 w-full text-center border border-gray-400'
+                          value='Sales Entry'
+                          />
                       </div>
                       <div className='flex items-center px-2 gap-1 font-semibold'>
                         <label className='text-xs'>SalesLocation</label>
-                        <input type='text' className='h-8 w-full border border-gray-400'/>
+                        <input type='text' 
+                          className='h-8 w-full text-center border border-gray-400'
+                          value={"RUH"}
+                          />
                       </div>
                       <div className='flex items-center px-2 gap-1 font-semibold'>
                         <label className='text-xs'>VAT#</label>
-                        <input type='text' className='h-8 w-full border bg-yellow-100 border-gray-400'/>
+                        <input 
+                          type='text' 
+                            className='h-8 w-full text-center border bg-yellow-100 border-gray-400'
+                            value={"300055050"}
+                            />
                       </div>
                   </div>
 
@@ -52,11 +87,19 @@ const PosModule = () => {
                       </div>
                       <div className='flex items-center px-2 gap-1 font-semibold'>
                         <label className='text-xs'>Delivery</label>
-                        <input type='text' className='h-8 w-full border border-gray-400'/>
+                        <input 
+                          type='text' 
+                            className='h-8 w-full text-center border border-gray-400'
+                            value="AB002"
+                            />
                       </div> 
                       <div className='flex items-center px-2 gap-1 font-semibold'>
                         <label className='text-xs flex-shrink-0'>CUSTOMER NAME</label>
-                        <input type='text' className='h-8 w-full border border-gray-400 bg-yellow-100'/>
+                        <input 
+                          type='text' 
+                            className='h-8 w-full text-center border border-gray-400 bg-yellow-100'
+                            // value={""}
+                            />
                       </div>                      
                   </div>
 
@@ -69,20 +112,32 @@ const PosModule = () => {
 
                       <div className='flex items-center gap-1 px-2 font-semibold'>
                         <label className='text-xs flex-shrink-0'>Type</label>
-                        <input type='text' className='h-8 w-[40%] border border-gray-400'/>
+                        <input 
+                          type='text' 
+                            className='h-8 w-[40%] text-center border border-gray-400'
+                            value={"Cash or Card"}
+                            />
                       </div>
                   </div>
 
                   <div className='grid 2xl:grid-cols-2 mt-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 grid-cols-1'>
                       <div className='flex items-center gap-1 px-2 font-semibold'>
                         <label className='text-xs flex-shrink-0'>Barcode</label>
-                        <input type='text' className='h-8 w-[70%] border border-gray-400 bg-yellow-300'/>
+                        <input 
+                          type='text' 
+                            className='h-8 w-[70%] text-center border border-gray-400 bg-yellow-300'
+                            onChange={(e) => setBarcode(e.target.value)}
+                            onBlur={handleBlur}
+                            />
                         <input type='text' className='h-8 w-[30%] text-center border border-gray-400' placeholder='1'/>
                       </div>
                       
                       <div className='flex justify-end items-center gap-1 px-2 font-semibold'>
                         <label className='text-xs flex-shrink-0'>Total No. of items</label>
-                        <input type='text' className='h-8 w-[20%] border border-gray-400 bg-gray-100'/>
+                        <input 
+                          type='text'
+                            value={responseData?.length ?? 0} 
+                            className='h-8 w-[20%] text-center border border-gray-400 bg-gray-100'/>
                       </div>
                   </div>
 
@@ -95,7 +150,7 @@ const PosModule = () => {
                             <th>LineNo</th>
                             <th>SKU</th>
                             <th>Brand</th>
-                            <th>DISC1</th>
+                            {/* <th>DISC1</th> */}
                             <th>PCS</th>
                             <th>SIZE</th>
                             <th>PRICE</th>
@@ -106,66 +161,21 @@ const PosModule = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {/* {newFilterData?.map((item, index) => (
+                          {responseData?.map((item, index) => (
                             <tr key={index}>
-                              <td>{item.ItemCode}</td>
-                              <td>{item.ItemDesc}</td>
-                              <td>{item.GTIN}</td>
-                              <td>{item.Remarks}</td>
-                              <td>{item.User}</td>
-                              <td>{item.Classification}</td>
-                              <td>{item.MainLocation}</td>
-                              <td>{item.BinLocation}</td>
-                              <td>{item.IntCode}</td>
-                              <td>{item.ItemSerialNo}</td>
-                              <td>{item.MapDate}</td>
-                              <td>{item.PalletCode}</td>
-                              <td>{item.Reference}</td>
-                              <td>{item.SID}</td>
-                              <td>{item.CID}</td>
-                              <td>{item.PO}</td>
-                              <td>{item.Trans}</td>
+                              <td>{index + 1}</td>
+                              <td>{item.barcode}</td>
+                              <td>{item.BrandName}</td>
+                              {/* <td>{item.DISC1}</td> */}
+                              <td>{item.ProductType}</td>
+                              <td>{item.size}</td>
+                              <td>1</td>
+                              <td>{item.productnameenglish}</td>
+                              <td>{item.productnamearabic}</td>
+                              <td>15%</td>
+                              <td>{item.price}</td>
                             </tr>
-                          ))} */}
-                          <tr>
-                            <td>LineNo</td>
-                            <td>SKU</td>
-                            <td>Brand</td>
-                            <td>DISC1</td>
-                            <td>PCS</td>
-                            <td>SIZE</td>
-                            <td>PRICE</td>
-                            <td>DESC</td>
-                            <td>DESC2</td>
-                            <td>VAT</td>
-                            <td>TOTAL WITH VAT</td>
-                          </tr>
-                          <tr>
-                            <td>LineNo</td>
-                            <td>SKU</td>
-                            <td>Brand</td>
-                            <td>DISC1</td>
-                            <td>PCS</td>
-                            <td>SIZE</td>
-                            <td>PRICE</td>
-                            <td>DESC</td>
-                            <td>DESC2</td>
-                            <td>VAT</td>
-                            <td>TOTAL WITH VAT</td>
-                          </tr>
-                          <tr>
-                            <td>LineNo</td>
-                            <td>SKU</td>
-                            <td>Brand</td>
-                            <td>DISC1</td>
-                            <td>PCS</td>
-                            <td>SIZE</td>
-                            <td>PRICE</td>
-                            <td>DESC</td>
-                            <td>DESC2</td>
-                            <td>VAT</td>
-                            <td>TOTAL WITH VAT</td>
-                          </tr>
+                          ))} 
                         </tbody>
                       </table>
                     </div>
