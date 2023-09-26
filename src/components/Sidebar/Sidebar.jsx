@@ -11,6 +11,7 @@ import inventory from '../../Images/inventory.png'
 import store from '../../Images/store.png'
 import priceChecker from "../../Images/priceChecker.png"
 import pos from "../../Images/pos.png"
+import logout from "../../Images/logout.png"
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -218,7 +219,7 @@ const SideBar = () => {
           </div>
 
           <div className="main-images-container" onClick={() => navigate("/")}>
-            <img src={internal} className="main-inside-image" alt="" />
+            <img src={logout} className="main-inside-image bg-white rounded-full" alt="" />
             <p className="sidebar-text">Log-out</p>
           </div>
 
