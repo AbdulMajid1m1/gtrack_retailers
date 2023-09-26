@@ -11,6 +11,9 @@ import NewPassword from "./Pages/NewPassword/NewPassword";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import VerifyCode from "./Pages/VerifyCode/VerifyCode";
 import RetailerProfile from "./Pages/RetailerProfile/RetailerProfile";
+import DataTableProvider from "./context/DataTableContext";
+import { CurrentUserProvider } from "./context/CurrentUserContext";
+import { SnackbarProvider } from "./context/SnackbarContext";
 
 const App = () => {
   const MainLayout = ({ children }) => {
@@ -23,6 +26,10 @@ const App = () => {
   };
   return (
     <>
+      <DataTableProvider>
+        <SnackbarProvider>
+          <CurrentUserProvider>
+
             <div>
               <BrowserRouter>
                 <Routes>
@@ -32,25 +39,32 @@ const App = () => {
                   <Route path="forgot-code" element={<ForgotPassword />} />
                   <Route path="verify" element={<VerifyCode />} />
 
-                  
+
                   <Route
                     path="/*"
                     element={
                       <MainLayout>
                         <Routes>
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/pos-module" element={<PosModule />} />
-                            <Route path="/price-checker" element={<PriceChecker />} />
-                            <Route path="/inventory-items" element={<InventoryItems />} />
-                            <Route path="/retailer-profile" element={<RetailerProfile />} />
+                          <Route path="/dashboard" element={<Dashboard />} />
+                          <Route path="/pos-module" element={<PosModule />} />
+                          <Route path="/price-checker" element={<PriceChecker />} />
+                          <Route path="/inventory-items" element={<InventoryItems />} />
+                          <Route path="/retailer-profile" element={<RetailerProfile />} />
                         </Routes>
                       </MainLayout>
                     }
                   />
                 </Routes>
               </BrowserRouter>
+
+
             </div>
-     </>
+          </CurrentUserProvider>
+        </SnackbarProvider>
+      </DataTableProvider>
+
+
+    </>
   );
 };
 
