@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
-import dashboard from '../../images/dashboard.png'
-import internal from '../../images/internal.png'
-import gtrackicons from '../../images/gtrackicons.png'
-import isoicon from '../../images/isoicon.png'
-import gs1logowhite from '../../images/gs1logowhite.png'
-import profile from '../../images/profile.png'
-import inventory from '../../images/inventory.png'
-import priceChecker from "../../images/priceChecker.png"
-import pos from "../../images/pos.png"
+import dashboard from '../../Images/dashboard.png'
+import internal from '../../Images/internal.png'
+import gtrackicons from '../../Images/gtrackicons.png'
+import isoicon from '../../Images/isoicon.png'
+import gs1logowhite from '../../Images/gs1logowhite.png'
+import profile from '../../Images/profile.png'
+import inventory from '../../Images/inventory.png'
+import store from '../../Images/store.png'
+import priceChecker from "../../Images/priceChecker.png"
+import pos from "../../Images/pos.png"
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -94,7 +95,7 @@ const SideBar = () => {
               </svg>
             </button>
             <p className="sm:text-2xl sm:py-0 py-2 sm:px-0 px-3 text-white font-medium">
-              Gtrack Retailer Portal 
+              Gtrack Retailer Portal
             </p>
           </div>
           <div
@@ -107,7 +108,7 @@ const SideBar = () => {
                 //   ? imagePath + currentUser?.user?.image
                 //   : memberprofile
                 profile
-                }
+              }
               className="h-7 w-7 bg-white rounded-full"
               alt=""
             />
@@ -152,6 +153,22 @@ const SideBar = () => {
             <p className="sidebar-text">Dashboard</p>
           </div>
 
+          <div
+            className={`main-images-container ${selectedItem === '/store-locations' ? 'selected-item' : ''}`}
+            onClick={() => handleItemClick('/store-locations')}
+            onContextMenu={(event) =>
+              handleContextMenu(event, '/store-locations')
+            }
+
+          >
+            <img
+              src={store}
+              className="main-inside-image bg-white rounded-full"
+              alt=""
+
+            />
+            <p className="sidebar-text">Store Locations</p>
+          </div>
           <div
             className={`main-images-container ${selectedItem === '/inventory-items' ? 'selected-item' : ''}`}
             onClick={() => handleItemClick('/inventory-items')}
@@ -207,20 +224,20 @@ const SideBar = () => {
 
         </div>
 
-          {/* This two icons  */}
-          <div>
-            <div className="flex justify-between w-[95%] px-2 absolute bottom-0 bg-primary">
-              <div className="main-images-container">
-                <img src={isoicon} className="main-inside-image-gs1logo" alt="" />
-              </div>
+        {/* This two icons  */}
+        <div>
+          <div className="flex justify-between w-[95%] px-2 absolute bottom-0 bg-primary">
+            <div className="main-images-container">
+              <img src={isoicon} className="main-inside-image-gs1logo" alt="" />
+            </div>
 
-              <div className="main-images-container">
-                <a href="https://www.gs1.org.sa" target="_blank" rel="noopener noreferrer">
-                  <img src={gs1logowhite} className="main-inside-image-gs1logo" alt="" />
-                </a>
-              </div>
+            <div className="main-images-container">
+              <a href="https://www.gs1.org.sa" target="_blank" rel="noopener noreferrer">
+                <img src={gs1logowhite} className="main-inside-image-gs1logo" alt="" />
+              </a>
             </div>
           </div>
+        </div>
 
 
         {/* Context Menu */}

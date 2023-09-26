@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import newRequest from '../../utils/userRequest';
-import safetyInformationIcon from "../../images/safetyInformation.jpeg";
-import promotionalOffersIcon from "../../images/promotionalOffers.jpeg";
-import productContentIcon from "../../images/productContent.jpeg";
-import productLocationofOriginIcon from "../../images/productLocationOrigin.jpeg";
-import productRecallIcon from "../../images/ProductRecall.jpeg";
-import recipeIcon from "../../images/Recipe.jpeg";
-import packagingCompositionIcon from "../../images/packaging.jpeg";
-import electronicLeafletsIcon from "../../images/electronicLeafLets.jpeg";
-import { SnackbarContext } from '../../context/SnackbarContext';
+import safetyInformationIcon from "../../Images/safetyInformation.jpeg";
+import promotionalOffersIcon from "../../Images/promotionalOffers.jpeg";
+import productContentIcon from "../../Images/productContent.jpeg";
+import productLocationofOriginIcon from "../../Images/productLocationOrigin.jpeg";
+import productRecallIcon from "../../Images/ProductRecall.jpeg";
+import recipeIcon from "../../Images/Recipe.jpeg";
+import packagingCompositionIcon from "../../Images/packaging.jpeg";
+import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
+import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import DataTable from '../../components/Datatable/Datatable';
 import { ElectronicLeafletsColumn, 
     PackagingCompositionColumn, 

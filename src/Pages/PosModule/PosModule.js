@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import "./PosModule.css"
 import newRequest from '../../utils/userRequest';
-import { SnackbarContext } from '../../context/SnackbarContext';
+import { SnackbarContext } from '../../Contexts/SnackbarContext';
 
 const PosModule = () => {
   const [barcode, setBarcode] = useState('');

@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 // import LinkIcon from '@mui/icons-material/Link';
 import newRequest from "../../utils/userRequest";
 import DataTable from "../../components/Datatable/Datatable";
-import { SnackbarContext } from "../../context/SnackbarContext";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { SnackbarContext } from "../../Contexts/SnackbarContext";
+import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 
 
 const InventoryItems = () => {
@@ -41,7 +41,7 @@ const InventoryItems = () => {
         setIsLoading(false)
 
       } catch (err) {
-        
+
         console.log(err);
         setIsLoading(false)
         openSnackbar(err?.response?.data?.message || 'Something Is Wrong', 'error')

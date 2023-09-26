@@ -975,3 +975,36 @@ export const ProductContentColumn = [
     editable: true,
   },
 ];
+export const GlnColumn = [
+  {
+    field: "gln_id",
+    headerName: "GLN ID",
+    width: 180,
+  },
+  {
+    field: "gcpGLNID",
+    headerName: "GCP GLN ID",
+    width: 180,
+  },
+  {
+    field: "locationNameEn",
+    headerName: "LOCATION NAME EN",
+    width: 180,
+  },
+  {
+    field: "locationNameAr",
+    headerName: "LOCATION NAME AR",
+    width: 150,
+  },
+
+  {
+    field: "GLNBarcodeNumber",
+    headerName: "GLN Barcode Number",
+    width: 180,
+  },
+  {
+    field: "status",
+    headerName: "STATUS",
+    width: 180,
+  },
+];

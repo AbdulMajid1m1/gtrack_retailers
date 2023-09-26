@@ -5,9 +5,9 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import { GoogleMap, StandaloneSearchBox, Marker, Polyline, DirectionsRenderer, OverlayView, InfoWindow } from '@react-google-maps/api';
 import DigitalLinkInformation from './DigitalLinkInformation';
-import backarrow from "../../images/backarrow1.png"
+import backarrow from "../../Images/backarrow1.png"
 import { useNavigate } from 'react-router-dom';
-import { SnackbarContext } from '../../context/SnackbarContext';
+import { SnackbarContext } from '../../Contexts/SnackbarContext';
 
 const style = {
   width: '95%',

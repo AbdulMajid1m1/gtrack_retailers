@@ -11,9 +11,10 @@ import NewPassword from "./Pages/NewPassword/NewPassword";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import VerifyCode from "./Pages/VerifyCode/VerifyCode";
 import RetailerProfile from "./Pages/RetailerProfile/RetailerProfile";
-import DataTableProvider from "./context/DataTableContext";
-import { CurrentUserProvider } from "./context/CurrentUserContext";
-import { SnackbarProvider } from "./context/SnackbarContext";
+import DataTableProvider from "./Contexts/DataTableContext";
+import { CurrentUserProvider } from "./Contexts/CurrentUserContext";
+import { SnackbarProvider } from "./Contexts/SnackbarContext";
+import StoreLocations from "./Pages/StoreLocations/StoreLocations";
 
 const App = () => {
   const MainLayout = ({ children }) => {
@@ -52,6 +53,7 @@ const App = () => {
                           <Route path="/pos-module" element={<PosModule />} />
                           <Route path="/inventory-items" element={<InventoryItems />} />
                           <Route path="/retailer-profile" element={<RetailerProfile />} />
+                          <Route path="/store-locations" element={<StoreLocations />} />
                         </Routes>
                       </MainLayout>
                     }
