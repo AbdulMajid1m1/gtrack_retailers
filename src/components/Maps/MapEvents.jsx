@@ -5,11 +5,12 @@ import { GoogleMap, StandaloneSearchBox, Marker, OverlayView } from '@react-goog
 const drawerWidth = 220;
 const MapEvents = ({ locations = [] }) => {
     const [selectedMarker, setSelectedMarker] = useState({ index: null, position: null });
-
+    const [isGoogleLoaded, setGoogleLoaded] = useState(false);
     // Location section 
     const [selectedLocation, setSelectedLocation] = useState();
     const RiyadhLocation = { lat: 24.7136, lng: 46.6753 }; // Riyadh, Saudi Arabia coordinates
     const [searchBox, setSearchBox] = useState(null);
+
 
     const handleSearchBoxLoad = (ref) => {
         setSearchBox(ref);
@@ -32,6 +33,16 @@ const MapEvents = ({ locations = [] }) => {
 
     // Current Location
     const [currentLocation, setCurrentLocation] = useState(null);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if (window.google) {
+                clearInterval(intervalId);
+                setGoogleLoaded(true);
+            }
+        }, 100);
+        return () => clearInterval(intervalId);
+    }, []);
     useEffect(() => {
         // Get the user's current location
         if (navigator.geolocation) {
@@ -48,6 +59,9 @@ const MapEvents = ({ locations = [] }) => {
             console.log('Geolocation is not supported by this browser.');
         }
     }, []);
+    if (!isGoogleLoaded) {
+        return null;
+    }
 
     const handleMapClicked = (event) => {
         const { latLng } = event;

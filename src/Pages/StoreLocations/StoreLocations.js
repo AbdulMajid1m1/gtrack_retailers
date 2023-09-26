@@ -7,8 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import logo from "../../Images/logo.png";
-
-import { RiseLoader } from 'react-spinners'
+import { QRCodeSVG } from 'qrcode.react'
 import { CurrentUserContext } from '../../Contexts/CurrentUserContext'
 import { DataTableContext } from '../../Contexts/DataTableContext';
 import MapEvents from "../../Components/Maps/MapEvents"
@@ -160,7 +159,7 @@ const StoreLocations = () => {
             <div className="p-3 h-full sm:ml-72">
                 <div className='h-auto w-full'>
                     <div className='h-16 w-full shadow-xl flex justify-start items-center px-5 border-l-2 border-t-2 border-r-2 border-[#e49515]'>
-                        <p className='sm:text-2xl text-sm font-body'>View GLN</p>
+                        <p className='sm:text-2xl text-sm font-body'>Store Locations</p>
                     </div>
                 </div>
 
@@ -171,11 +170,11 @@ const StoreLocations = () => {
                         </button>
 
                         <button onClick={() => navigate('/addgln')} className="rounded-full bg-[#1E3B8B] font-body px-8 py-1 text-sm mb-3 text-white transition duration-200 hover:bg-[#4b6fd2] active:bg-blue-700">
-                            <i className="fas fa-plus mr-1"></i> Add GLN
+                            <i className="fas fa-plus mr-1"></i> Add Locaion
                         </button>
 
                         <button onClick={handleGlnPage} className="rounded-full bg-[#1E3B8B] font-body px-8 py-1 text-sm mb-3 text-white transition duration-200 hover:bg-[#4b6fd2] active:bg-blue-700">
-                            <i className="fas fa-print mr-1"></i> Print GLN
+                            <i className="fas fa-print mr-1"></i> Print Location
                         </button>
                     </div>
                 </div>
@@ -184,7 +183,7 @@ const StoreLocations = () => {
 
 
                 <div style={{ marginLeft: '-11px', marginRight: '-11px' }}>
-                    <DataTable data={data} title={"MEMBER GLN LIST"} columnsName={GlnColumn} backButton={false}
+                    <DataTable data={data} title={"STORE LOCATIONS LIST"} columnsName={GlnColumn} backButton={false}
                         loading={isLoading}
                         secondaryColor="secondary"
                         uniqueId={"gln_id"}
