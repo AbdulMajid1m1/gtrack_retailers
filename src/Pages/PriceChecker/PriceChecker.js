@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { GoogleMap, StandaloneSearchBox, Marker, Polyline, DirectionsRenderer, OverlayView, InfoWindow } from '@react-google-maps/api';
 import DigitalLinkInformation from './DigitalLinkInformation';
 import backarrow from "../../Images/backarrow1.png"
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 
@@ -28,6 +29,27 @@ const PriceChecker = () => {
   const [searchedData, setSearchedData] = useState({}); // State to store API data
   const navigate = useNavigate();
   const { openSnackbar } = useContext(SnackbarContext);
+<<<<<<< HEAD
+=======
+  
+
+  // Full Screen Code
+  const [isFullscreen, setIsFullscreen] = useState(document.fullscreenElement != null);
+
+  const toggleFullscreen = () => {
+    if (isFullscreen) {
+      document.exitFullscreen().catch((error) => {
+        console.error(`Error exiting full-screen mode: ${error.message} (${error.name})`);
+      });
+    } else {
+      document.documentElement.requestFullscreen().catch((error) => {
+        console.error(`Error entering full-screen mode: ${error.message} (${error.name})`);
+      });
+    }
+    setIsFullscreen(!isFullscreen);  // Update the state to reflect the new full-screen status
+  };
+
+>>>>>>> 52710344ceb26532ea62c9a7e0ffa3a554b2fd6b
 
   const parseInput = (input) => {
     let extracted = {
@@ -344,6 +366,7 @@ const PriceChecker = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <div className="p-3">
         <div className='flex flex-wrap'>
           {/* GTIN search */}
@@ -358,6 +381,42 @@ const PriceChecker = () => {
                   />
                 </span>
               </button>
+=======
+        <div className="p-3">
+          <div className='flex flex-wrap'>
+            <div className='h-10 w-full bg-primary flex justify-start items-center'>
+                <button onClick={() => navigate(-1)} className='font-medium rounded-sm p-2 py-1'>
+                      <span>
+                        <img src={backarrow}
+                            className='h-auto w-8 object-contain'
+                            alt=''
+                            style={{ filter: 'brightness(0) invert(1)' }} 
+                      />
+                </span>
+                </button>
+
+                <button onClick={toggleFullscreen} className='font-medium h-auto w-14 rounded-sm p-2 py-1'>
+                      <FullscreenIcon 
+                            style={{ height: 'auto', width: '40px', filter: 'brightness(0) invert(1)' }}
+                            className=''
+                            alt=''
+                     
+                      />
+                </button>
+            </div>
+             {/* GTIN search */}
+            <div className='h-10 w-[60%] mt-2'>
+              {/* <div className='flex bg-red-400'> */}
+                <input
+                  type="text"
+                  className="w-full border-2 h-10 rounded-md px-5 font-semibold text-black border-gray-600"
+                  placeholder="GTIN INFORMATION"
+                  value={gtin}
+                  onChange={(event) => setGTIN(event.target.value)}
+                  onBlur={handleSearch}
+                  />
+                {/* </div> */}
+>>>>>>> 52710344ceb26532ea62c9a7e0ffa3a554b2fd6b
 
               <input
                 type="text"
@@ -567,10 +626,17 @@ const PriceChecker = () => {
           </div>
 
 
+<<<<<<< HEAD
 
           {/* right Side of Component */}
           <div className='h-10 w-[40%]'>
             <DigitalLinkInformation gtinData={data?.gtinArr} />
+=======
+            {/* right Side of Component */}
+            <div className='h-10 w-[40%] mt-2'>
+                 <DigitalLinkInformation  gtinData={data?.gtinArr}/>
+            </div>
+>>>>>>> 52710344ceb26532ea62c9a7e0ffa3a554b2fd6b
           </div>
         </div>
       </div>

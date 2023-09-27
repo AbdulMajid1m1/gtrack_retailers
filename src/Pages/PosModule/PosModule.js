@@ -48,7 +48,7 @@ const PosModule = () => {
                   <p>INVOICE NO</p>
                   <input
                     type='text'
-                    value={"001-Branch" + " " + new Date().toLocaleDateString()}
+                    value={"001-Branch" + "-" + new Date().toLocaleDateString()}
                     className='h-8 w-auto text-center border-2 border-gray-400' />
 
                 </div>
