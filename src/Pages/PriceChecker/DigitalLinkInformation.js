@@ -12,51 +12,52 @@ import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import DataTable from '../../Components/Datatable/Datatable';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { ElectronicLeafletsColumn, 
-    PackagingCompositionColumn, 
-    ProductContentColumn, 
-    ProductLocationofOriginColumn, 
-    ProductRecallColumn, 
-    PromotionalOffersColumns, 
-    RecipeColumn, 
-    SafetyInformationColumn 
-} 
-from '../../utils/datatablesource';
+import {
+  ElectronicLeafletsColumn,
+  PackagingCompositionColumn,
+  ProductContentColumn,
+  ProductLocationofOriginColumn,
+  ProductRecallColumn,
+  PromotionalOffersColumns,
+  RecipeColumn,
+  SafetyInformationColumn
+}
+  from '../../utils/datatablesource';
 import DeleteIcon from "@mui/icons-material/Delete";
 
 
 const DigitalLinkInformation = ({ gtinData }) => {
-    const [data, setData] = useState([]);
-    const [safetyInformation, setSafetyInformation] = useState([]);
-    const [recipe, setRecipe] = useState([]);
-    const [productContent, setProductContent] = useState([]);
-    const [promotionalOffers, setPromotionalOffers] = useState([]);
-    const [productLocationofOrigin, setProductLocationofOrigin] = useState([]);
-    const [productRecall, setProductRecall] = useState([]);
-    const [packagingComposition, setPackagingComposition] = useState([]);
-    const [electronicLeaflets, setElectronicLeaflets] = useState([]);
-  
-    
-    const handleDelete = (id) => {
-        console.log(id);
-    }
+  const [data, setData] = useState([]);
+  const [safetyInformation, setSafetyInformation] = useState([]);
+  const [recipe, setRecipe] = useState([]);
+  const [productContent, setProductContent] = useState([]);
+  const [promotionalOffers, setPromotionalOffers] = useState([]);
+  const [productLocationofOrigin, setProductLocationofOrigin] = useState([]);
+  const [productRecall, setProductRecall] = useState([]);
+  const [packagingComposition, setPackagingComposition] = useState([]);
+  const [electronicLeaflets, setElectronicLeaflets] = useState([]);
 
-    const [selectedOption, setSelectedOption] = useState("Safety Information");
-    const { openSnackbar } = useContext(SnackbarContext);
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleDelete = (id) => {
+    console.log(id);
+  }
 
-   
-    const toggleDropdown = () => {
-      setIsDropdownOpen(!isDropdownOpen);
-      setIsMenuOpen((prev) => !prev);
-    };
+  const [selectedOption, setSelectedOption] = useState("Safety Information");
+  const { openSnackbar } = useContext(SnackbarContext);
 
-    const handleOptionChange = (option) => {
-      setSelectedOption(option);
-      setIsDropdownOpen(false);
-      
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+    setIsDropdownOpen(false);
+
     switch (option) {
       case "Safety Information":
         newRequest
@@ -188,193 +189,193 @@ const DigitalLinkInformation = ({ gtinData }) => {
     switch (selectedOption) {
       case "Safety Information":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={safetyInformation}
-            title={"Safety Information"}
-            secondaryColor="secondary"
-            columnsName={SafetyInformationColumn}
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={safetyInformation}
+              title={"Safety Information"}
+              secondaryColor="secondary"
+              columnsName={SafetyInformationColumn}
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
                   ),
                   action: handleDelete,
                 },
               ]}
-              />
+            />
           </div>
         );
 
       case "Promotional Offers":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={promotionalOffers}
-            title="Promotional Offers"
-            columnsName={PromotionalOffersColumns}
-            secondaryColor="secondary"
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={promotionalOffers}
+              title="Promotional Offers"
+              columnsName={PromotionalOffersColumns}
+              secondaryColor="secondary"
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+            />
           </div>
         );
 
       case "Product Contents":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={productContent}
-            title="Product Contents"
-            secondaryColor="secondary"
-            columnsName={ProductContentColumn}
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={productContent}
+              title="Product Contents"
+              secondaryColor="secondary"
+              columnsName={ProductContentColumn}
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+            />
           </div>
         );
 
       case "ProductLocationofOrigin":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={productLocationofOrigin}
-            title="Product Location of Origin"
-            secondaryColor="secondary"
-            columnsName={ProductLocationofOriginColumn}
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={productLocationofOrigin}
+              title="Product Location of Origin"
+              secondaryColor="secondary"
+              columnsName={ProductLocationofOriginColumn}
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+            />
           </div>
         );
 
       case "ProductRecall":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={productRecall}
-            title="Product Recall"
-            columnsName={ProductRecallColumn}
-            secondaryColor="secondary"
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={productRecall}
+              title="Product Recall"
+              columnsName={ProductRecallColumn}
+              secondaryColor="secondary"
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+            />
           </div>
         );
 
       case "recipe":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={recipe}
-            title="Recipe"
-            columnsName={RecipeColumn}
-            secondaryColor="secondary"
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={recipe}
+              title="Recipe"
+              columnsName={RecipeColumn}
+              secondaryColor="secondary"
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+            />
           </div>
         );
 
       case "PackagingComposition":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={packagingComposition}
-            title="Packaging Composition"
-            secondaryColor="secondary"
-            columnsName={PackagingCompositionColumn}
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={packagingComposition}
+              title="Packaging Composition"
+              secondaryColor="secondary"
+              columnsName={PackagingCompositionColumn}
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+            />
           </div>
         );
 
       case "ElectronicLeaflets":
         return (
-          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
-          <DataTable
-            data={electronicLeaflets}
-            title="Electronic Leaflets"
-            secondaryColor="secondary"
-            columnsName={ElectronicLeafletsColumn}
-            checkboxSelection="disabled"
-            // processRowUpdate={processRowUpdate}
-            backButton={false}
-            dropDownOptions={[
-              {
-                label: "Delete",
-                icon: (
-                  <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+            <DataTable
+              data={electronicLeaflets}
+              title="Electronic Leaflets"
+              secondaryColor="secondary"
+              columnsName={ElectronicLeafletsColumn}
+              checkboxSelection="disabled"
+              // processRowUpdate={processRowUpdate}
+              backButton={false}
+              dropDownOptions={[
+                {
+                  label: "Delete",
+                  icon: (
+                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+            />
           </div>
         );
       // Add more cases for other options
@@ -384,121 +385,131 @@ const DigitalLinkInformation = ({ gtinData }) => {
   };
 
 
-  
+
 
   return (
-    <div>
-          <div className="h-10 w-full bg-[#e49515] shadow-xl flex justify-between items-center px-5">
-            <p className="sm:w-auto w-full sm:text-lg text-sm font-body text-white">
-              Digital Link Information
-            </p>
+    <div
+      style={{
+        height: '100%', width: '100%',
+        padding: '0 10px',
+        position: 'relative',
+      }}
+    >
+      <div className="h-10 w-full bg-[#e49515] shadow-xl flex justify-between items-center px-5"
+        onClick={toggleDropdown}>
+        <p className="sm:w-auto w-full sm:text-lg text-sm font-body text-white">
+          Digital Link Information
+        </p>
 
-            <span
-                onClick={toggleDropdown}
-                className="cursor-pointer text-white"
-              >
-                {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-              </span>
-          </div>
+        <span
 
-          {/* <div className="h-auto w-full flex justify-between flex-wrap"> */}
-          {isDropdownOpen && (
-            <div className="h-auto w-full sm:w-full flex flex-col gap-4 mt-4">
-               <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Safety Information" ? "bg-yellow-500" : ""
-                  }`}
-                onClick={() => handleOptionChange("Safety Information")}
-              >
-                <img
-                  src={safetyInformationIcon}
-                  className="w-5 h-5 ml-1"
-                  alt=""
-                />
-                Safety Information
-              </span>
-              <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
-                  }`}
-                onClick={() => handleOptionChange("Promotional Offers")}
-              >
-                <img
-                  src={promotionalOffersIcon}
-                  className="w-5 h-5 ml-1"
-                  alt=""
-                />
-                Promotional Offers
-              </span>
-              <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
-                  }`}
-                onClick={() => handleOptionChange("Product Contents")}
-              >
-                <img src={productContentIcon} className="w-5 h-5 ml-1" alt="" />
-                Product Contents
-              </span>
-              <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
-                  ? "bg-yellow-500"
-                  : ""
-                  }`}
-                onClick={() => handleOptionChange("ProductLocationofOrigin")}
-              >
-                <img
-                  src={productLocationofOriginIcon}
-                  className="w-5 h-5 ml-1"
-                  alt=""
-                />
-                Product Location of Origin
-              </span>
-              <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
-                  }`}
-                onClick={() => handleOptionChange("ProductRecall")}
-              >
-                <img src={productRecallIcon} className="h-5 w-5 ml-1" alt="" />
-                Product Recall
-              </span>
-              <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
-                  }`}
-                onClick={() => handleOptionChange("recipe")}
-              >
-                <img src={recipeIcon} className="h-5 w-5 ml-1" alt="" />
-                Recipe
-              </span>
-              <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
-                  ? "bg-yellow-500"
-                  : ""
-                  }`}
-                onClick={() => handleOptionChange("PackagingComposition")}
-              >
-                <img
-                  src={packagingCompositionIcon}
-                  className="h-5 w-5 ml-1"
-                  alt=""
-                />
-                Packaging Composition
-              </span>
-              <span
-                className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
-                  }`}
-                onClick={() => handleOptionChange("ElectronicLeaflets")}
-              >
-                <img
-                  src={electronicLeafletsIcon}
-                  className="h-5 w-5 ml-1"
-                  alt=""
-                />
-                Electronic Leaflets
-              </span>
-            </div>
-            )}
+          className="cursor-pointer text-white"
+        >
+          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+        </span>
+      </div>
 
-            {/* All Datagird Display on the right side */}
-            <div className="sm:w-full w-full">{renderDataGrid()}</div>
+      {/* <div className="h-auto w-full flex justify-between flex-wrap"> */}
+      {isDropdownOpen && (
+        <div className="h-auto w-full flex flex-col gap-4 mt-4 pr-5"
+          style={{ position: "absolute", zIndex: 10, background: "#fff", }}
+        >
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Safety Information" ? "bg-yellow-500" : ""
+              }`}
+            onClick={() => handleOptionChange("Safety Information")}
+          >
+            <img
+              src={safetyInformationIcon}
+              className="w-5 h-5 ml-1"
+              alt=""
+            />
+            Safety Information
+          </span>
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
+              }`}
+            onClick={() => handleOptionChange("Promotional Offers")}
+          >
+            <img
+              src={promotionalOffersIcon}
+              className="w-5 h-5 ml-1"
+              alt=""
+            />
+            Promotional Offers
+          </span>
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
+              }`}
+            onClick={() => handleOptionChange("Product Contents")}
+          >
+            <img src={productContentIcon} className="w-5 h-5 ml-1" alt="" />
+            Product Contents
+          </span>
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
+              ? "bg-yellow-500"
+              : ""
+              }`}
+            onClick={() => handleOptionChange("ProductLocationofOrigin")}
+          >
+            <img
+              src={productLocationofOriginIcon}
+              className="w-5 h-5 ml-1"
+              alt=""
+            />
+            Product Location of Origin
+          </span>
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
+              }`}
+            onClick={() => handleOptionChange("ProductRecall")}
+          >
+            <img src={productRecallIcon} className="h-5 w-5 ml-1" alt="" />
+            Product Recall
+          </span>
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
+              }`}
+            onClick={() => handleOptionChange("recipe")}
+          >
+            <img src={recipeIcon} className="h-5 w-5 ml-1" alt="" />
+            Recipe
+          </span>
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
+              ? "bg-yellow-500"
+              : ""
+              }`}
+            onClick={() => handleOptionChange("PackagingComposition")}
+          >
+            <img
+              src={packagingCompositionIcon}
+              className="h-5 w-5 ml-1"
+              alt=""
+            />
+            Packaging Composition
+          </span>
+          <span
+            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
+              }`}
+            onClick={() => handleOptionChange("ElectronicLeaflets")}
+          >
+            <img
+              src={electronicLeafletsIcon}
+              className="h-5 w-5 ml-1"
+              alt=""
+            />
+            Electronic Leaflets
+          </span>
+        </div>
+      )
+      }
 
-    </div>
+      {/* All Datagird Display on the right side */}
+      <div className="sm:w-full w-full">{renderDataGrid()}</div>
+
+    </div >
   )
 }
 
