@@ -10,6 +10,8 @@ import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import DataTable from '../../components/Datatable/Datatable';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import { ElectronicLeafletsColumn, 
     PackagingCompositionColumn, 
     ProductContentColumn, 
@@ -41,9 +43,20 @@ const DigitalLinkInformation = ({ gtinData }) => {
 
     const [selectedOption, setSelectedOption] = useState("Safety Information");
     const { openSnackbar } = useContext(SnackbarContext);
-  const handleOptionChange = (option) => {
-    setSelectedOption(option);
 
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+   
+    const toggleDropdown = () => {
+      setIsDropdownOpen(!isDropdownOpen);
+      setIsMenuOpen((prev) => !prev);
+    };
+
+    const handleOptionChange = (option) => {
+      setSelectedOption(option);
+      setIsDropdownOpen(false);
+      
     switch (option) {
       case "Safety Information":
         newRequest
@@ -175,6 +188,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
     switch (selectedOption) {
       case "Safety Information":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={safetyInformation}
             title={"Safety Information"}
@@ -188,15 +202,17 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 label: "Delete",
                 icon: (
                   <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                ),
-                action: handleDelete,
-              },
-            ]}
-          />
+                  ),
+                  action: handleDelete,
+                },
+              ]}
+              />
+          </div>
         );
 
       case "Promotional Offers":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={promotionalOffers}
             title="Promotional Offers"
@@ -215,10 +231,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
               },
             ]}
           />
+          </div>
         );
 
       case "Product Contents":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={productContent}
             title="Product Contents"
@@ -237,10 +255,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
               },
             ]}
           />
+          </div>
         );
 
       case "ProductLocationofOrigin":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={productLocationofOrigin}
             title="Product Location of Origin"
@@ -259,10 +279,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
               },
             ]}
           />
+          </div>
         );
 
       case "ProductRecall":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={productRecall}
             title="Product Recall"
@@ -281,10 +303,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
               },
             ]}
           />
+          </div>
         );
 
       case "recipe":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={recipe}
             title="Recipe"
@@ -303,10 +327,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
               },
             ]}
           />
+          </div>
         );
 
       case "PackagingComposition":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={packagingComposition}
             title="Packaging Composition"
@@ -325,10 +351,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
               },
             ]}
           />
+          </div>
         );
 
       case "ElectronicLeaflets":
         return (
+          <div style={{marginLeft: '-10px', marginRight: '-10px'}}>
           <DataTable
             data={electronicLeaflets}
             title="Electronic Leaflets"
@@ -347,6 +375,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               },
             ]}
           />
+          </div>
         );
       // Add more cases for other options
       default:
@@ -355,15 +384,25 @@ const DigitalLinkInformation = ({ gtinData }) => {
   };
 
 
+  
+
   return (
     <div>
-          <div className="h-10 w-full bg-[#e49515] shadow-xl flex justify-start items-center px-5">
+          <div className="h-10 w-full bg-[#e49515] shadow-xl flex justify-between items-center px-5">
             <p className="sm:w-auto w-full sm:text-lg text-sm font-body text-white">
               Digital Link Information
             </p>
+
+            <span
+                onClick={toggleDropdown}
+                className="cursor-pointer text-white"
+              >
+                {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+              </span>
           </div>
 
           {/* <div className="h-auto w-full flex justify-between flex-wrap"> */}
+          {isDropdownOpen && (
             <div className="h-auto w-full sm:w-full flex flex-col gap-4 mt-4">
                <span
                 className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Safety Information" ? "bg-yellow-500" : ""
@@ -454,6 +493,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 Electronic Leaflets
               </span>
             </div>
+            )}
 
             {/* All Datagird Display on the right side */}
             <div className="sm:w-full w-full">{renderDataGrid()}</div>
