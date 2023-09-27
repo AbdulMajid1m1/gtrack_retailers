@@ -50,6 +50,11 @@ const DigitalLinkInformation = ({ gtinData }) => {
 
 
   const toggleDropdown = () => {
+    if (gtinData?.gtin === undefined) {
+      openSnackbar("Please select a product first", "error");
+      setIsMenuOpen(false);
+      return;
+    }
     setIsDropdownOpen(!isDropdownOpen);
     setIsMenuOpen((prev) => !prev);
   };

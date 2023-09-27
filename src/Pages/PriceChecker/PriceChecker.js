@@ -381,7 +381,8 @@ const PriceChecker = () => {
             </button>
           </div>
           {/* GTIN search */}
-          <div className='h-10 w-[60%] mt-2'>
+          <div className='h-10 w-[60%] mt-2 overflow-auto h-full flex-shrink-0' style={{ maxHeight: '90vh' }}>
+            {/* <div className='flex-shrink-0 overflow-auto h-full mr-4' style={{ width: '60%', maxHeight: '100vh' }}> */}
             {/* <div className='flex bg-red-400'> */}
             <input
               type="text"
