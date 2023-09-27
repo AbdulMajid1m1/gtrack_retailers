@@ -41,7 +41,7 @@ const App = () => {
                   <Route path="verify" element={<VerifyCode />} />
 
                   <Route path="/price-checker" element={<PriceChecker />} />
-
+                  <Route path="/pos-module" element={<PosModule />} />
 
 
                   <Route
@@ -50,7 +50,6 @@ const App = () => {
                       <MainLayout>
                         <Routes>
                           <Route path="/dashboard" element={<Dashboard />} />
-                          <Route path="/pos-module" element={<PosModule />} />
                           <Route path="/inventory-items" element={<InventoryItems />} />
                           <Route path="/retailer-profile" element={<RetailerProfile />} />
                           <Route path="/store-locations" element={<StoreLocations />} />

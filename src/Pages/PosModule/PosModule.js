@@ -2,12 +2,16 @@ import React, { useContext, useState } from 'react'
 import "./PosModule.css"
 import newRequest from '../../utils/userRequest';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
+import backarrow from "../../Images/backarrow1.png"
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import { useNavigate } from 'react-router-dom';
 
 const PosModule = () => {
   const [barcode, setBarcode] = useState('');
   const [responseData, setResponseData] = useState(null);
   const { openSnackbar } = useContext(SnackbarContext);
- 
+  const navigate = useNavigate();
+  
   const handleBlur = async () => {
       try {
         const response = await newRequest.get(`/getGs1ProdProductsbyBarcode?barcode=${barcode}`);
@@ -24,12 +28,49 @@ const PosModule = () => {
         setResponseData([]);
       }
     };
+
+
+    // Full Screen Code
+  const [isFullscreen, setIsFullscreen] = useState(document.fullscreenElement != null);
+
+  const toggleFullscreen = () => {
+    if (isFullscreen) {
+      document.exitFullscreen().catch((error) => {
+        console.error(`Error exiting full-screen mode: ${error.message} (${error.name})`);
+      });
+    } else {
+      document.documentElement.requestFullscreen().catch((error) => {
+        console.error(`Error entering full-screen mode: ${error.message} (${error.name})`);
+      });
+    }
+    setIsFullscreen(!isFullscreen);  // Update the state to reflect the new full-screen status
+  };
+
   return (
     <div>
-        <div className="p-1 h-full sm:ml-72 bg-slate-100">
+        <div className="p-1 bg-slate-100">
            <div className='h-auto w-full'>
-              <form>
+              {/* <form> */}
                   <div className='h-14 w-full bg-primary flex justify-start items-center'>
+                        <button onClick={() => navigate(-1)} className='font-medium rounded-sm p-2 py-1'>
+                          <span>
+                            <img src={backarrow}
+                                className='h-auto w-8 object-contain'
+                                alt=''
+                                style={{ filter: 'brightness(0) invert(1)' }} 
+                          />
+                        </span>
+                      </button>
+
+                      <button onClick={toggleFullscreen} className='font-medium h-auto w-14 rounded-sm p-2 py-1'>
+                            <FullscreenIcon 
+                                  style={{ height: 'auto', width: '40px', filter: 'brightness(0) invert(1)' }}
+                                  className=''
+                                  alt=''
+                          
+                            />
+                      </button>
+                     
                       <h3 className='text-white text-1xl font-semibold ml-2'>Sales Entry Form (Direct Invoice)</h3>
                   </div>
                   <div className='border-4 mt-2 border-dashed border-gray-300'>
@@ -230,7 +271,7 @@ const PosModule = () => {
                     
                     </div>
                 </div>
-              </form>
+              {/* </form> */}
            </div>
         </div>
     </div>
