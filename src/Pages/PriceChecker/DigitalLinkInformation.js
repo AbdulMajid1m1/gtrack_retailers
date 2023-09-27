@@ -9,13 +9,9 @@ import recipeIcon from "../../Images/Recipe.jpeg";
 import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
-<<<<<<< HEAD
 import DataTable from '../../Components/Datatable/Datatable';
-=======
-import DataTable from '../../components/Datatable/Datatable';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
->>>>>>> 52710344ceb26532ea62c9a7e0ffa3a554b2fd6b
 import { ElectronicLeafletsColumn, 
     PackagingCompositionColumn, 
     ProductContentColumn, 
