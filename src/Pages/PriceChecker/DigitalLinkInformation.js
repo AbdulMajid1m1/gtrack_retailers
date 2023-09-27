@@ -9,7 +9,7 @@ import recipeIcon from "../../Images/Recipe.jpeg";
 import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
-import DataTable from '../../components/Datatable/Datatable';
+import DataTable from '../../Components/Datatable/Datatable';
 import { ElectronicLeafletsColumn, 
     PackagingCompositionColumn, 
     ProductContentColumn, 

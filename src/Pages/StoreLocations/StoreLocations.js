@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import DataTable from '../../components/Datatable/Datatable'
+import DataTable from '../../Components/Datatable/Datatable'
 import { GlnColumn } from '../../utils/datatablesource'
 import phpRequest from '../../utils/phpRequest'
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,7 +10,7 @@ import logo from "../../Images/logo.png";
 import { QRCodeSVG } from 'qrcode.react'
 import { CurrentUserContext } from '../../Contexts/CurrentUserContext'
 import { DataTableContext } from '../../Contexts/DataTableContext';
-import MapEvents from "../../components/Maps/MapEvents"
+import MapEvents from "../../Components/Maps/MapEvents"
 
 const StoreLocations = () => {
     const [data, setData] = useState([]);

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import DeleteIcon from "@mui/icons-material/Delete";
 // import LinkIcon from '@mui/icons-material/Link';
 import newRequest from "../../utils/userRequest";
-import DataTable from "../../components/Datatable/Datatable";
+import DataTable from "../../Components/Datatable/Datatable";
 import { SnackbarContext } from "../../Contexts/SnackbarContext";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 

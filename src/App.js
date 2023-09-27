@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Sidebar from "./components/Sidebar/Sidebar";
+import Sidebar from "./Components/Sidebar/Sidebar";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import PosModule from "./Pages/PosModule/PosModule";
 import PriceChecker from "./Pages/PriceChecker/PriceChecker";
