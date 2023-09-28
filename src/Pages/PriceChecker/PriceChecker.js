@@ -140,7 +140,7 @@ const PriceChecker = () => {
           });
 
 
-          
+
         fetchLocations();
       })
       .catch((error) => {
@@ -408,12 +408,12 @@ const PriceChecker = () => {
             </button>
           </div>
           {/* GTIN search */}
-          <div className='w-[60%] mt-2 overflow-auto h-full flex-shrink-0' style={{ maxHeight: '90vh' }}>
+          <div className='w-[60%] mt-2 overflow-auto h-full flex-shrink-0' style={{ maxHeight: '115vh' }}>
             {/* <div className='flex-shrink-0 overflow-auto h-full mr-4' style={{ width: '60%', maxHeight: '100vh' }}> */}
             {/* <div className='flex bg-red-400'> */}
             <input
               type="text"
-              className="w-full border-2 h-10 rounded-md px-5 font-semibold text-black border-gray-600"
+              className="w-full bg-yellow-100 border-2 h-10 rounded-md px-5 font-semibold text-black border-gray-600"
               placeholder="GTIN INFORMATION"
               value={gtin}
               onChange={(event) => setGTIN(event.target.value)}
@@ -423,14 +423,14 @@ const PriceChecker = () => {
 
             <div className="flex flex-col md:flex-row border-2 border-dashed mt-3">
               <div className="w-full md:w-2/3">
-                <div className="container mx-auto mt-6 p-4">
+                <div className="container mx-auto p-1">
                   <div className="overflow-x-auto">
-                    <table className="table-auto min-w-max w-full">
+                    <table className="table-auto text-[10.5px] min-w-max w-full">
                       <tbody>
                         {products.map((product, index) => (
                           <tr key={index}>
-                            <td className="border px-4 py-2 sm:text-sm md:text-base font-semibold text-xs">{product.name}</td>
-                            <td className="border font-body px-4 py-2 sm:text-sm font-bold text-black md:text-base text-xs">{product.value}</td>
+                            <td className="border px-4 py-1">{product.name}</td>
+                            <td className="border px-4 py-1 font-semibold">{product.value}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -439,11 +439,10 @@ const PriceChecker = () => {
                 </div>
               </div>
 
-              {/* image Show in Right Side*/}
-              <div className="w-full md:w-1/3 flex flex-col justify-center items-center p-4">
+              <div className="w-full md:w-1/3 flex flex-col justify-center items-center -mt-6 p-8">
                 {/* Add your image element here */}
                 {data?.gtinArr?.productImageUrl && (
-                  <img src={data.gtinArr.productImageUrl} alt="Product" className="w-1/2" />
+                  <img src={data.gtinArr.productImageUrl} alt="Product" className="w-1/2 h-32" />
 
                 )}
 
@@ -451,56 +450,9 @@ const PriceChecker = () => {
               </div>
             </div>
 
-            {/* Filter Barcode Code */}
-            <div className='h-auto mt-2'>
-              <div className='h-auto 2xl:h-44 xl:h-44 lg:h-44 w-full border-2 border-gray-200 rounded-md'>
-                <div className='p-4 font-semibold flex flex-col gap-2'>
-                  <label className='text-black text-2xl'>Filter By</label>
-                  <hr />
-                </div>
-
-                <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4'>
-                  <div className='px-4 flex flex-col gap-2'>
-                    <label>Batches <span className='text-red-500'>*</span></label>
-                    <select
-                      type='text'
-                      className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200'
-                      onChange={handleBatchChange}
-                    >
-                      <option value="none">-select-</option>
-                      {searchedData?.batch && (
-                        <option value={searchedData?.batch}>{searchedData?.batch}</option>
-                      )}
-
-                    </select>
-                  </div>
-
-
-                  <div className='px-4 flex flex-col gap-2'>
-                    <label>Serials </label>
-                    <select type='text'
-                      className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200'
-                      onChange={handleSerialChange}
-                    >
-                      <option value="none">-select-</option>
-                      {searchedData?.serial && (
-                        <option value={searchedData?.serial}>{searchedData?.serial}</option>
-                      )}
-                    </select>
-                  </div>
-
-                  <div className='px-4 flex flex-col gap-2'>
-                    <label>Expiry Date</label>
-                    <input type='date' className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200' placeholder='Batch' />
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
+           
             {/* Map Code */}
-            <Box sx={{ display: 'flex' , marginTop: '-20px'}}>
+            <Box sx={{ display: 'flex' , marginTop: '-45px'}}>
               <AppBar
                 className='fortrans'
                 position='fixed'
@@ -520,7 +472,7 @@ const PriceChecker = () => {
               >
                 <div className="container mt-5" style={{ width: "100%" }}>
                   <GoogleMap
-                    mapContainerStyle={{ height: '400px', width: '100%' }}
+                    mapContainerStyle={{ height: '350px', width: '100%' }}
                     center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : RiyadhLocation}
                     zoom={currentLocation ? 13 : 10}
                     onClick={handleMapClicked}
@@ -618,7 +570,55 @@ const PriceChecker = () => {
 
               </Box>
             </Box>
-          </div>
+
+           {/* Filter Barcode Code */}
+           <div className='h-auto -mt-5'>
+              <div className='h-auto p-2 2xl:h-24 xl:h-24 lg:h-24 w-full border-2 border-gray-200 rounded-md'>
+                {/* <div className='p-4 font-semibold flex flex-col gap-2'>
+                  <label className='text-black text-2xl'>Filter By</label>
+                  <hr />
+                </div> */}
+                <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4'>
+                  <div className='px-4 flex flex-col gap-2'>
+                    <label>Batches <span className='text-red-500'>*</span></label>
+                    <select
+                      type='text'
+                      className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200'
+                      onChange={handleBatchChange}
+                    >
+                      <option value="none">-select-</option>
+                      {searchedData?.batch && (
+                        <option value={searchedData?.batch}>{searchedData?.batch}</option>
+                      )}
+
+                    </select>
+                  </div>
+
+
+                  <div className='px-4 flex flex-col gap-2'>
+                    <label>Serials </label>
+                    <select type='text'
+                      className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200'
+                      onChange={handleSerialChange}
+                    >
+                      <option value="none">-select-</option>
+                      {searchedData?.serial && (
+                        <option value={searchedData?.serial}>{searchedData?.serial}</option>
+                      )}
+                    </select>
+                  </div>
+
+                  <div className='px-4 flex flex-col gap-2'>
+                    <label>Expiry Date</label>
+                    <input type='date' className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200' placeholder='Batch' />
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            </div>
+          
+
 
 
 

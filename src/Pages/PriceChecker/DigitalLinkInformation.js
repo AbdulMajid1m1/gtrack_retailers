@@ -62,7 +62,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
   const handleOptionChange = (option) => {
     setSelectedOption(option);
     setIsDropdownOpen(false);
-
+    
     switch (option) {
       case "Safety Information":
         newRequest
@@ -194,8 +194,8 @@ const DigitalLinkInformation = ({ gtinData }) => {
     switch (selectedOption) {
       case "Safety Information":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
-            <DataTable
+          <div className='h-auto w-full mt-3'>
+            {/* <DataTable
               data={safetyInformation}
               title={"Safety Information"}
               secondaryColor="secondary"
@@ -212,14 +212,31 @@ const DigitalLinkInformation = ({ gtinData }) => {
                   action: handleDelete,
                 },
               ]}
-            />
+            /> */}
+            <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+                <h1 className='text-center font-semibold bg-yellow-100'>Safety Information RECORD</h1>
+                <div>
+                    <p className='text-base'>Safety Information: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.SafetyDetailedInformation}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.LinkType}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Target URL: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.TargetURL}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Company Name: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.companyName}</span></p>
+                </div>
+            </div>
+
           </div>
         );
 
       case "Promotional Offers":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
-            <DataTable
+          <div className='h-auto w-full mt-3'>
+          {/*  <div style={{ marginLeft: '-10px', marginRight: '-10px' }}> */}
+            {/* <DataTable
               data={promotionalOffers}
               title="Promotional Offers"
               columnsName={PromotionalOffersColumns}
@@ -236,61 +253,116 @@ const DigitalLinkInformation = ({ gtinData }) => {
                   action: handleDelete,
                 },
               ]}
-            />
+            /> */}
+
+            <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+                <h1 className='text-center font-semibold bg-yellow-100'>Promotional Offers RECORD</h1>
+                <div>
+                    <p className='text-base'>Promotional Offers: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.PromotionalOffers}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.LinkType}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Target URL: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.TargetURL}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Price: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.price}</span></p>
+                </div>
+            </div>
+
           </div>
         );
 
       case "Product Contents":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
-            <DataTable
-              data={productContent}
-              title="Product Contents"
-              secondaryColor="secondary"
-              columnsName={ProductContentColumn}
-              checkboxSelection="disabled"
-              // processRowUpdate={processRowUpdate}
-              backButton={false}
-              dropDownOptions={[
-                {
-                  label: "Delete",
-                  icon: (
-                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                  ),
-                  action: handleDelete,
-                },
-              ]}
-            />
+          <div className='h-auto w-full mt-3'>
+           {/* <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+             <DataTable
+               data={productContent}
+               title="Product Contents"
+               secondaryColor="secondary"
+               columnsName={ProductContentColumn}
+               checkboxSelection="disabled"
+               // processRowUpdate={processRowUpdate}
+               backButton={false}
+               dropDownOptions={[
+                 {
+                   label: "Delete",
+                   icon: (
+                     <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                   ),
+                   action: handleDelete,
+                 },
+               ]}
+             />
+            </div> */}
+          <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+              <h1 className='text-center font-semibold bg-yellow-100'>Product Content RECORD</h1>
+              <div>
+                  <p className='text-base'>Product Allergen Information: <span className='font-semibold ml-1'>{productContent?.[0]?.ProductAllergenInformation}</span></p>
+              </div>
+              <div>
+                  <p className='text-base'>Allergen Info: <span className='font-semibold ml-1'>{productContent?.[0]?.allergen_info}</span></p>
+              </div>
+              <div>
+                  <p className='text-base'>Ingredients: <span className='font-semibold ml-1'>{productContent?.[0]?.ingredients}</span></p>
+              </div>
+              <div>
+                  <p className='text-base'>Manufacturing Date: <span className='font-semibold ml-1'>{productContent?.[0]?.ManufacturingDate}</span></p>
+              </div>
+              <div>
+                  <p className='text-base'>Best Before Date: <span className='font-semibold ml-1'>{productContent?.[0]?.bestBeforeDate}</span></p>
+              </div>
+          </div>
           </div>
         );
 
       case "ProductLocationofOrigin":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
-            <DataTable
-              data={productLocationofOrigin}
-              title="Product Location of Origin"
-              secondaryColor="secondary"
-              columnsName={ProductLocationofOriginColumn}
-              checkboxSelection="disabled"
-              // processRowUpdate={processRowUpdate}
-              backButton={false}
-              dropDownOptions={[
-                {
-                  label: "Delete",
-                  icon: (
-                    <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
-                  ),
-                  action: handleDelete,
-                },
-              ]}
-            />
+          <div className='h-auto w-full mt-3'>
+          {/*  <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+             <DataTable
+               data={productLocationofOrigin}
+               title="Product Location of Origin"
+               secondaryColor="secondary"
+               columnsName={ProductLocationofOriginColumn}
+               checkboxSelection="disabled"
+               // processRowUpdate={processRowUpdate}
+               backButton={false}
+               dropDownOptions={[
+                 {
+                   label: "Delete",
+                   icon: (
+                     <DeleteIcon fontSize="small" style={{ color: "#FF0032" }} />
+                   ),
+                   action: handleDelete,
+                 },
+               ]}
+             /> */}
+
+            <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+              <h1 className='text-center font-semibold bg-yellow-100'>Product Loaction Origin RECORD</h1>
+              <div>
+                  <p className='text-base'>Product Location Origin: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.ProductLocationOrigin}</span></p>
+              </div>
+              <div>
+                  <p className='text-base'>Allergen Info: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.LinkType}</span></p>
+              </div>
+              <div>
+                  <p className='text-base'>Ingredients: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.GTIN}</span></p>
+              </div>
+              <div>
+                  <p className='text-base'>Manufacturing Date: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.ExpiryDate}</span></p>
+              </div>
+          </div>
           </div>
         );
 
       case "ProductRecall":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+          <div className='h-auto w-full mt-3'>
+          {/* <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
             <DataTable
               data={productRecall}
               title="Product Recall"
@@ -308,13 +380,29 @@ const DigitalLinkInformation = ({ gtinData }) => {
                   action: handleDelete,
                 },
               ]}
-            />
+            /> */}
+            <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+                <h1 className='text-center font-semibold bg-yellow-100'>Product Recall RECORD</h1>
+                <div>
+                    <p className='text-base'>ProductRecall: <span className='font-semibold ml-1'>{productRecall?.[0]?.ProductRecall}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>GTIN: <span className='font-semibold ml-1'>{productRecall?.[0]?.GTIN}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{productRecall?.[0]?.LinkType}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Expiry Date: <span className='font-semibold ml-1'>{productRecall?.[0]?.ExpiryDate}</span></p>
+                </div>
+            </div>
           </div>
         );
 
       case "recipe":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+          <div className='h-auto w-full mt-3'>
+          {/* <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
             <DataTable
               data={recipe}
               title="Recipe"
@@ -332,13 +420,29 @@ const DigitalLinkInformation = ({ gtinData }) => {
                   action: handleDelete,
                 },
               ]}
-            />
+            /> */}
+             <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+                <h1 className='text-center font-semibold bg-yellow-100'>Recipe RECORD</h1>
+                <div>
+                    <p className='text-base'>Title: <span className='font-semibold ml-1'>{recipe?.[0]?.title}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Description: <span className='font-semibold ml-1'>{recipe?.[0]?.description}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Ingredients: <span className='font-semibold ml-1'>{recipe?.[0]?.ingredients}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{recipe?.[0]?.LinkType}</span></p>
+                </div>
+            </div>
           </div>
         );
 
       case "PackagingComposition":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+          <div className='h-auto w-full mt-3'>
+          {/* <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
             <DataTable
               data={packagingComposition}
               title="Packaging Composition"
@@ -356,13 +460,29 @@ const DigitalLinkInformation = ({ gtinData }) => {
                   action: handleDelete,
                 },
               ]}
-            />
+            /> */}
+            <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+                <h1 className='text-center font-semibold bg-yellow-100'>Packaging Composition RECORD</h1>
+                <div>
+                    <p className='text-base'>Packaging Composition: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.consumerProductVariant}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.LinkType}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Recyclability: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.recyclability}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Material: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.material}</span></p>
+                </div>
+              </div>
           </div>
         );
 
       case "ElectronicLeaflets":
         return (
-          <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
+          <div className='h-auto w-full mt-3'>
+          {/* <div style={{ marginLeft: '-10px', marginRight: '-10px' }}>
             <DataTable
               data={electronicLeaflets}
               title="Electronic Leaflets"
@@ -380,7 +500,22 @@ const DigitalLinkInformation = ({ gtinData }) => {
                   action: handleDelete,
                 },
               ]}
-            />
+            /> */}
+            <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
+                <h1 className='text-center font-semibold bg-yellow-100'>Electronic Leaflets RECORD</h1>
+                <div>
+                    <p className='text-base'>Product Leaflet Information: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.ProductLeafletInformation}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.LinkType}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>Language: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.Lang}</span></p>
+                </div>
+                <div>
+                    <p className='text-base'>GTIN: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.GTIN}</span></p>
+                </div>
+              </div>
           </div>
         );
       // Add more cases for other options
