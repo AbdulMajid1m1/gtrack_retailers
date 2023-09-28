@@ -406,110 +406,115 @@ const DigitalLinkInformation = ({ gtinData }) => {
           Digital Link Information
         </p>
 
-        <span
+        {/* <span
 
           className="cursor-pointer text-white"
         >
           {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-        </span>
+        </span> */}
       </div>
 
       {/* <div className="h-auto w-full flex justify-between flex-wrap"> */}
-      {isDropdownOpen && (
-        <div className="h-auto w-full flex flex-col gap-4 mt-4 pr-5"
-          style={{ position: "absolute", zIndex: 10, background: "#fff", }}
+      {/* {isDropdownOpen && ( */}
+        <div className="h-auto w-full flex gap-3 mt-3"
+          // style={{ position: "absolute", zIndex: 10, background: "#fff", }}
         >
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Safety Information" ? "bg-yellow-500" : ""
-              }`}
-            onClick={() => handleOptionChange("Safety Information")}
-          >
-            <img
-              src={safetyInformationIcon}
-              className="w-5 h-5 ml-1"
-              alt=""
-            />
-            Safety Information
-          </span>
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
-              }`}
-            onClick={() => handleOptionChange("Promotional Offers")}
-          >
-            <img
-              src={promotionalOffersIcon}
-              className="w-5 h-5 ml-1"
-              alt=""
-            />
-            Promotional Offers
-          </span>
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
-              }`}
-            onClick={() => handleOptionChange("Product Contents")}
-          >
-            <img src={productContentIcon} className="w-5 h-5 ml-1" alt="" />
-            Product Contents
-          </span>
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
-              ? "bg-yellow-500"
-              : ""
-              }`}
-            onClick={() => handleOptionChange("ProductLocationofOrigin")}
-          >
-            <img
-              src={productLocationofOriginIcon}
-              className="w-5 h-5 ml-1"
-              alt=""
-            />
-            Product Location of Origin
-          </span>
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
-              }`}
-            onClick={() => handleOptionChange("ProductRecall")}
-          >
-            <img src={productRecallIcon} className="h-5 w-5 ml-1" alt="" />
-            Product Recall
-          </span>
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
-              }`}
-            onClick={() => handleOptionChange("recipe")}
-          >
-            <img src={recipeIcon} className="h-5 w-5 ml-1" alt="" />
-            Recipe
-          </span>
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
-              ? "bg-yellow-500"
-              : ""
-              }`}
-            onClick={() => handleOptionChange("PackagingComposition")}
-          >
-            <img
-              src={packagingCompositionIcon}
-              className="h-5 w-5 ml-1"
-              alt=""
-            />
-            Packaging Composition
-          </span>
-          <span
-            className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
-              }`}
-            onClick={() => handleOptionChange("ElectronicLeaflets")}
-          >
-            <img
-              src={electronicLeafletsIcon}
-              className="h-5 w-5 ml-1"
-              alt=""
-            />
-            Electronic Leaflets
-          </span>
+          <div className='w-full flex flex-col gap-2'>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Safety Information" ? "bg-yellow-500" : ""
+                }`}
+              onClick={() => handleOptionChange("Safety Information")}
+            >
+              <img
+                src={safetyInformationIcon}
+                className="w-5 h-5 ml-1"
+                alt=""
+              />
+              Safety Information
+            </span>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
+                }`}
+              onClick={() => handleOptionChange("Promotional Offers")}
+            >
+              <img
+                src={promotionalOffersIcon}
+                className="w-5 h-5 ml-1"
+                alt=""
+              />
+              Promotional Offers
+            </span>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
+                }`}
+              onClick={() => handleOptionChange("Product Contents")}
+            >
+              <img src={productContentIcon} className="w-5 h-5 ml-1" alt="" />
+              Product Contents
+            </span>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
+                ? "bg-yellow-500"
+                : ""
+                }`}
+              onClick={() => handleOptionChange("ProductLocationofOrigin")}
+            >
+              <img
+                src={productLocationofOriginIcon}
+                className="w-5 h-5 ml-1"
+                alt=""
+              />
+              Product Location of Origin
+            </span>
+          </div>
+
+          <div className='w-full flex flex-col gap-2'>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
+                }`}
+              onClick={() => handleOptionChange("ProductRecall")}
+            >
+              <img src={productRecallIcon} className="h-5 w-5 ml-1" alt="" />
+              Product Recall
+            </span>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
+                }`}
+              onClick={() => handleOptionChange("recipe")}
+            >
+              <img src={recipeIcon} className="h-5 w-5 ml-1" alt="" />
+              Recipe
+            </span>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
+                ? "bg-yellow-500"
+                : ""
+                }`}
+              onClick={() => handleOptionChange("PackagingComposition")}
+            >
+              <img
+                src={packagingCompositionIcon}
+                className="h-5 w-5 ml-1"
+                alt=""
+              />
+              Packaging Composition
+            </span>
+            <span
+              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
+                }`}
+              onClick={() => handleOptionChange("ElectronicLeaflets")}
+            >
+              <img
+                src={electronicLeafletsIcon}
+                className="h-5 w-5 ml-1"
+                alt=""
+              />
+              Electronic Leaflets
+            </span>
+          </div>
         </div>
-      )
-      }
+      {/* ) */}
+      {/* } */}
 
       {/* All Datagird Display on the right side */}
       <div className="sm:w-full w-full">{renderDataGrid()}</div>
