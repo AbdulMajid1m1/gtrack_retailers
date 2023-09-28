@@ -9,6 +9,7 @@ import backarrow from "../../Images/backarrow1.png"
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
+import newRequest from '../../utils/userRequest';
 
 const style = {
   width: '95%',
@@ -27,6 +28,7 @@ const PriceChecker = () => {
   const [gtin, setGTIN] = useState("");
   const [data, setData] = useState(null);
   const [searchedData, setSearchedData] = useState({}); // State to store API data
+  const [productPriceState, setProductPriceState] = useState(null); // State to store API data
   const navigate = useNavigate();
   const { openSnackbar } = useContext(SnackbarContext);
 
@@ -106,7 +108,7 @@ const PriceChecker = () => {
           openSnackbar("No data found", 'error');
 
           setData(null);
-          return
+          return;
         }
         console.log(response?.data);
         setData(response?.data);
@@ -114,6 +116,31 @@ const PriceChecker = () => {
         // sessionStorage.setItem("EventgtinArr", JSON.stringify(response?.data?.gtinArr));
         setGTIN(gtin)
 
+
+        // Product Price ki api 
+        newRequest
+          .get(`/getProductContentByGtin/${result.gtin}`)
+          .then((secondResponse) => {
+            if (secondResponse.data && secondResponse.data.length > 0) {
+            
+              const firstNonNullOrUndefinedObject = secondResponse.data.find(item => item.unitPrice !== null && item.unitPrice !== undefined);
+
+              if (firstNonNullOrUndefinedObject) {
+                // Set the product price from the first non-null object
+                setProductPriceState(firstNonNullOrUndefinedObject.unitPrice);
+              } 
+              if (firstNonNullOrUndefinedObject === undefined) {
+                // agar value undefined hai to main state ko null kr raha ho
+                setProductPriceState(null);
+              }
+            }})
+          .catch((secondError) => {
+            console.log(secondError);
+            // setProductPriceState([]);
+          });
+
+
+          
         fetchLocations();
       })
       .catch((error) => {
@@ -381,7 +408,7 @@ const PriceChecker = () => {
             </button>
           </div>
           {/* GTIN search */}
-          <div className='h-10 w-[60%] mt-2 overflow-auto h-full flex-shrink-0' style={{ maxHeight: '90vh' }}>
+          <div className='w-[60%] mt-2 overflow-auto h-full flex-shrink-0' style={{ maxHeight: '90vh' }}>
             {/* <div className='flex-shrink-0 overflow-auto h-full mr-4' style={{ width: '60%', maxHeight: '100vh' }}> */}
             {/* <div className='flex bg-red-400'> */}
             <input
@@ -413,12 +440,14 @@ const PriceChecker = () => {
               </div>
 
               {/* image Show in Right Side*/}
-              <div className="w-full md:w-1/3 flex justify-center items-center p-4">
+              <div className="w-full md:w-1/3 flex flex-col justify-center items-center p-4">
                 {/* Add your image element here */}
                 {data?.gtinArr?.productImageUrl && (
                   <img src={data.gtinArr.productImageUrl} alt="Product" className="w-1/2" />
 
                 )}
+
+                <p className="text-center font-bold mt-2">{productPriceState} SAR</p>
               </div>
             </div>
 
@@ -471,7 +500,7 @@ const PriceChecker = () => {
 
 
             {/* Map Code */}
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex' , marginTop: '-20px'}}>
               <AppBar
                 className='fortrans'
                 position='fixed'
