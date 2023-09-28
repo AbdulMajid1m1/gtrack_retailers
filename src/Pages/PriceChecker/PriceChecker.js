@@ -414,7 +414,7 @@ const PriceChecker = () => {
             <input
               type="text"
               className="w-full bg-yellow-100 border-2 h-10 rounded-md px-5 font-semibold text-black border-gray-600"
-              placeholder="GTIN INFORMATION"
+              placeholder="Scan your Barcode here...."
               value={gtin}
               onChange={(event) => setGTIN(event.target.value)}
               onBlur={handleSearch}

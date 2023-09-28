@@ -214,19 +214,45 @@ const DigitalLinkInformation = ({ gtinData }) => {
               ]}
             /> */}
             <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-                <h1 className='text-center font-semibold bg-yellow-100'>Safety Information RECORD</h1>
-                <div>
-                    <p className='text-base'>Safety Information: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.SafetyDetailedInformation}</span></p>
+                <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+                <div className='flex justify-between'>
+                    <div className='w-[50%]'>
+                        <p className='text-[#4AA9C4]'>Safety Information</p>
+                    </div>
+                    <div className='flex w-[50%] overflow-x-auto gap-2'>
+                      <p>:</p>
+                      <span className='ml-1 text-[#CD8742]'>{safetyInformation?.[0]?.SafetyDetailedInformation}</span>
+                    </div>
                 </div>
-                <div>
-                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.LinkType}</span></p>
-                </div>
-                <div>
-                    <p className='text-base'>Target URL: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.TargetURL}</span></p>
-                </div>
-                <div>
-                    <p className='text-base'>Company Name: <span className='font-semibold ml-1'>{safetyInformation?.[0]?.companyName}</span></p>
-                </div>
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Link Type</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{safetyInformation?.[0]?.LinkType}</span>
+                      </div>
+                  </div>
+
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Target URL</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{safetyInformation?.[0]?.TargetURL}</span>
+                      </div>
+                  </div>
+
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Company Name</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{safetyInformation?.[0]?.companyName}</span>
+                      </div>
+                  </div>
             </div>
 
           </div>
@@ -256,19 +282,46 @@ const DigitalLinkInformation = ({ gtinData }) => {
             /> */}
 
             <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-                <h1 className='text-center font-semibold bg-yellow-100'>Promotional Offers RECORD</h1>
-                <div>
-                    <p className='text-base'>Promotional Offers: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.PromotionalOffers}</span></p>
-                </div>
-                <div>
-                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.LinkType}</span></p>
-                </div>
-                <div>
-                    <p className='text-base'>Target URL: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.TargetURL}</span></p>
-                </div>
-                <div>
-                    <p className='text-base'>Price: <span className='font-semibold ml-1'>{promotionalOffers?.[0]?.price}</span></p>
-                </div>
+                <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Promotional Offers</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{promotionalOffers?.[0]?.PromotionalOffers}</span>
+                      </div>
+                  </div>
+               
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Link Type</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{promotionalOffers?.[0]?.LinkType}</span>
+                      </div>
+                  </div>
+
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Target URL</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{promotionalOffers?.[0]?.TargetURL}</span>
+                      </div>
+                  </div>
+
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Price</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{promotionalOffers?.[0]?.price}</span>
+                      </div>
+                  </div>
             </div>
 
           </div>
@@ -298,23 +351,57 @@ const DigitalLinkInformation = ({ gtinData }) => {
              />
             </div> */}
           <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-              <h1 className='text-center font-semibold bg-yellow-100'>Product Content RECORD</h1>
-              <div>
-                  <p className='text-base'>Product Allergen Information: <span className='font-semibold ml-1'>{productContent?.[0]?.ProductAllergenInformation}</span></p>
-              </div>
-              <div>
-                  <p className='text-base'>Allergen Info: <span className='font-semibold ml-1'>{productContent?.[0]?.allergen_info}</span></p>
-              </div>
-              <div>
-                  <p className='text-base'>Ingredients: <span className='font-semibold ml-1'>{productContent?.[0]?.ingredients}</span></p>
-              </div>
-              <div>
-                  <p className='text-base'>Manufacturing Date: <span className='font-semibold ml-1'>{productContent?.[0]?.ManufacturingDate}</span></p>
-              </div>
-              <div>
-                  <p className='text-base'>Best Before Date: <span className='font-semibold ml-1'>{productContent?.[0]?.bestBeforeDate}</span></p>
-              </div>
-          </div>
+              <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+                 <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Product Allergen Information</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{productContent?.[0]?.ProductAllergenInformation}</span>
+                      </div>
+                  </div>
+              
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Allergen Info</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{productContent?.[0]?.allergen_info}</span>
+                      </div>
+                  </div>
+
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Ingredients</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{productContent?.[0]?.ingredients}</span>
+                      </div>
+                  </div>
+
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Manufacturing Date</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{productContent?.[0]?.ManufacturingDate}</span>
+                      </div>
+                  </div>
+
+                  <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Best Before Date</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{productContent?.[0]?.bestBeforeDate}</span>
+                      </div>
+                  </div> 
+                </div>
           </div>
         );
 
@@ -342,18 +429,46 @@ const DigitalLinkInformation = ({ gtinData }) => {
              /> */}
 
             <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-              <h1 className='text-center font-semibold bg-yellow-100'>Product Loaction Origin RECORD</h1>
-              <div>
-                  <p className='text-base'>Product Location Origin: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.ProductLocationOrigin}</span></p>
+              <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+              
+              <div className='flex justify-between'>
+                      <div className='w-[50%]'>
+                          <p className='text-[#4AA9C4]'>Product Location Origin</p>
+                      </div>
+                      <div className='flex w-[50%] overflow-x-auto gap-2'>
+                        <p>:</p>
+                          <span className='ml-1 text-[#CD8742]'>{productLocationofOrigin?.[0]?.ProductLocationOrigin}</span>
+                      </div>
               </div>
-              <div>
-                  <p className='text-base'>Allergen Info: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.LinkType}</span></p>
+
+              <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Link Type</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{productLocationofOrigin?.[0]?.LinkType}</span>
+                  </div>
               </div>
-              <div>
-                  <p className='text-base'>Ingredients: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.GTIN}</span></p>
+
+              <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Ingredients</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{productLocationofOrigin?.[0]?.GTIN}</span>
+                  </div>
               </div>
-              <div>
-                  <p className='text-base'>Manufacturing Date: <span className='font-semibold ml-1'>{productLocationofOrigin?.[0]?.ExpiryDate}</span></p>
+
+              <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Manufacturing Date</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{productLocationofOrigin?.[0]?.ExpiryDate}</span>
+                  </div>
               </div>
           </div>
           </div>
@@ -382,18 +497,49 @@ const DigitalLinkInformation = ({ gtinData }) => {
               ]}
             /> */}
             <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-                <h1 className='text-center font-semibold bg-yellow-100'>Product Recall RECORD</h1>
-                <div>
-                    <p className='text-base'>ProductRecall: <span className='font-semibold ml-1'>{productRecall?.[0]?.ProductRecall}</span></p>
+                {/* <h1 className='text-center font-semibold bg-yellow-100'>Product Recall RECORD</h1> */}
+                <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>ProductRecall</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{productRecall?.[0]?.ProductRecall}</span>
+                  </div>
+               </div>
+               
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>GTIN</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{productRecall?.[0]?.GTIN}</span>
+                  </div>
                 </div>
-                <div>
-                    <p className='text-base'>GTIN: <span className='font-semibold ml-1'>{productRecall?.[0]?.GTIN}</span></p>
+
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Link Type</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{productRecall?.[0]?.LinkType}</span>
+                  </div>
                 </div>
-                <div>
-                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{productRecall?.[0]?.LinkType}</span></p>
-                </div>
-                <div>
-                    <p className='text-base'>Expiry Date: <span className='font-semibold ml-1'>{productRecall?.[0]?.ExpiryDate}</span></p>
+
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Expiry Date</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{productRecall?.[0]?.ExpiryDate}</span>
+                  </div>
                 </div>
             </div>
           </div>
@@ -422,18 +568,60 @@ const DigitalLinkInformation = ({ gtinData }) => {
               ]}
             /> */}
              <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-                <h1 className='text-center font-semibold bg-yellow-100'>Recipe RECORD</h1>
-                <div>
+                {/* <h1 className='text-center font-semibold bg-yellow-100'>Recipe RECORD</h1> */}
+                <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+                {/* <div>
                     <p className='text-base'>Title: <span className='font-semibold ml-1'>{recipe?.[0]?.title}</span></p>
+                </div> */}
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Title</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{recipe?.[0]?.title}</span>
+                  </div>
                 </div>
-                <div>
+
+                {/* <div>
                     <p className='text-base'>Description: <span className='font-semibold ml-1'>{recipe?.[0]?.description}</span></p>
+                </div> */}
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Description</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{recipe?.[0]?.description}</span>
+                  </div>
                 </div>
-                <div>
+
+                {/* <div>
                     <p className='text-base'>Ingredients: <span className='font-semibold ml-1'>{recipe?.[0]?.ingredients}</span></p>
+                </div> */}
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Ingredients</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{recipe?.[0]?.ingredients}</span>
+                  </div>
                 </div>
-                <div>
+
+                {/* <div>
                     <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{recipe?.[0]?.LinkType}</span></p>
+                </div> */}
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Link Type</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{recipe?.[0]?.LinkType}</span>
+                  </div>
                 </div>
             </div>
           </div>
@@ -462,19 +650,52 @@ const DigitalLinkInformation = ({ gtinData }) => {
               ]}
             /> */}
             <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-                <h1 className='text-center font-semibold bg-yellow-100'>Packaging Composition RECORD</h1>
-                <div>
-                    <p className='text-base'>Packaging Composition: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.consumerProductVariant}</span></p>
+                <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Packaging Composition</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{packagingComposition?.[0]?.consumerProductVariant}</span>
+                  </div>
                 </div>
-                <div>
-                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.LinkType}</span></p>
+               
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Link Type</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{packagingComposition?.[0]?.LinkType}</span>
+                  </div>
                 </div>
-                <div>
-                    <p className='text-base'>Recyclability: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.recyclability}</span></p>
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Recyclability</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{packagingComposition?.[0]?.recyclability}</span>
+                  </div>
                 </div>
-                <div>
+
+                {/* <div>
                     <p className='text-base'>Material: <span className='font-semibold ml-1'>{packagingComposition?.[0]?.material}</span></p>
+                </div> */}
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Material</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{packagingComposition?.[0]?.material}</span>
+                  </div>
                 </div>
+
               </div>
           </div>
         );
@@ -502,18 +723,47 @@ const DigitalLinkInformation = ({ gtinData }) => {
               ]}
             /> */}
             <div className='flex flex-col gap-2 p-2 border-2 border-dashed'>
-                <h1 className='text-center font-semibold bg-yellow-100'>Electronic Leaflets RECORD</h1>
-                <div>
-                    <p className='text-base'>Product Leaflet Information: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.ProductLeafletInformation}</span></p>
+                <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Product Leaflet Information</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{electronicLeaflets?.[0]?.ProductLeafletInformation}</span>
+                  </div>
                 </div>
-                <div>
-                    <p className='text-base'>Link Type: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.LinkType}</span></p>
+
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Link Type</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{electronicLeaflets?.[0]?.LinkType}</span>
+                  </div>
                 </div>
-                <div>
-                    <p className='text-base'>Language: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.Lang}</span></p>
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>Language</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{electronicLeaflets?.[0]?.Lang}</span>
+                  </div>
                 </div>
-                <div>
-                    <p className='text-base'>GTIN: <span className='font-semibold ml-1'>{electronicLeaflets?.[0]?.GTIN}</span></p>
+
+                <div className='flex justify-between'>
+                  <div className='w-[50%]'>
+                    <p className='text-[#4AA9C4]'>GTIN</p>
+                  </div>
+                  <div className='flex w-[50%] overflow-x-auto gap-2'>
+                    <p>:</p>
+                    <span className='ml-1 text-[#CD8742]'>{electronicLeaflets?.[0]?.GTIN}</span>
+                  </div>
                 </div>
               </div>
           </div>
