@@ -806,7 +806,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
         >
           <div className='w-full flex flex-col gap-2'>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Safety Information" ? "bg-yellow-500" : ""
+              className={`bg-[#3b5998] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer 
                 }`}
               onClick={() => handleOptionChange("Safety Information")}
             >
@@ -818,7 +818,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Safety Information
             </span>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
+              className={`bg-[#00acee] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("Promotional Offers")}
             >
@@ -830,7 +830,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Promotional Offers
             </span>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
+              className={`bg-[#0072b1] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("Product Contents")}
             >
@@ -838,7 +838,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Product Contents
             </span>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
+              className={`bg-[#E60023] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
                 ? "bg-yellow-500"
                 : ""
                 }`}
@@ -855,7 +855,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
 
           <div className='w-full flex flex-col gap-2'>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
+              className={`bg-[#0099FF] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("ProductRecall")}
             >
@@ -863,7 +863,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Product Recall
             </span>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
+              className={`bg-[#db4a39] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("recipe")}
             >
@@ -871,7 +871,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Recipe
             </span>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
+              className={`bg-[#25d366] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
                 ? "bg-yellow-500"
                 : ""
                 }`}
@@ -885,7 +885,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Packaging Composition
             </span>
             <span
-              className={`bg-yellow-100 flex justify-start items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
+              className={`bg-[#CD201F] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("ElectronicLeaflets")}
             >
