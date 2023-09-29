@@ -9,6 +9,7 @@ import recipeIcon from "../../Images/Recipe.jpeg";
 import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
+import gs1logo from "../../Images/gs1.png";
 import DataTable from '../../Components/Datatable/Datatable';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -24,7 +25,6 @@ import {
 }
   from '../../utils/datatablesource';
 import DeleteIcon from "@mui/icons-material/Delete";
-
 
 const DigitalLinkInformation = ({ gtinData }) => {
   const [data, setData] = useState([]);
@@ -785,6 +785,21 @@ const DigitalLinkInformation = ({ gtinData }) => {
         position: 'relative',
       }}
     >
+      {/* new design */}
+      <div className="popup-header">
+        <div className="w-full font-body p-6 shadow-xl rounded-md text-black bg-[#D4EDDA] text-xl mb:2 md:mb-5">
+            <div className='flex justify-start gap-2 text-xs sm:text-sm'>
+                <div>
+                  <img src={gs1logo} className='h-10 w-10' alt='' />
+                </div>
+                <div>
+                  <p className='font-semibold'>Complete Data</p>
+                  <p>This number is registered to company: : <span className='font-semibold'>Test</span></p>
+                </div>
+            </div>
+        </div>
+      </div>
+
       <div className="h-10 w-full bg-[#e49515] shadow-xl flex justify-between items-center px-5"
         onClick={toggleDropdown}>
         <p className="sm:w-auto w-full sm:text-lg text-sm font-body text-white">
@@ -806,7 +821,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
         >
           <div className='w-full flex flex-col gap-2'>
             <span
-              className={`bg-[#3b5998] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer 
+              className={`bg-[#3b5998] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer 
                 }`}
               onClick={() => handleOptionChange("Safety Information")}
             >
@@ -818,7 +833,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Safety Information
             </span>
             <span
-              className={`bg-[#00acee] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
+              className={`bg-[#00acee] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "Promotional Offers" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("Promotional Offers")}
             >
@@ -830,7 +845,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Promotional Offers
             </span>
             <span
-              className={`bg-[#0072b1] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
+              className={`bg-[#0072b1] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "Product Contents" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("Product Contents")}
             >
@@ -855,7 +870,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
 
           <div className='w-full flex flex-col gap-2'>
             <span
-              className={`bg-[#0099FF] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
+              className={`bg-[#0099FF] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ProductRecall" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("ProductRecall")}
             >
@@ -863,7 +878,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Product Recall
             </span>
             <span
-              className={`bg-[#db4a39] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
+              className={`bg-[#db4a39] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "recipe" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("recipe")}
             >
@@ -871,7 +886,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Recipe
             </span>
             <span
-              className={`bg-[#25d366] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
+              className={`bg-[#25d366] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "PackagingComposition"
                 ? "bg-yellow-500"
                 : ""
                 }`}
@@ -885,7 +900,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Packaging Composition
             </span>
             <span
-              className={`bg-[#CD201F] py-2 flex justify-center rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
+              className={`bg-[#CD201F] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ElectronicLeaflets" ? "bg-yellow-500" : ""
                 }`}
               onClick={() => handleOptionChange("ElectronicLeaflets")}
             >
