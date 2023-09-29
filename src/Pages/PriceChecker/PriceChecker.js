@@ -585,7 +585,7 @@ const PriceChecker = () => {
                     <label>Batches <span className='text-red-500'>*</span></label>
                     <select
                       type='text'
-                      className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200'
+                      className='w-full border h-8 rounded-md px-2 font-semibold border-gray-200'
                       onChange={handleBatchChange}
                     >
                       <option value="none">-select-</option>
@@ -600,7 +600,7 @@ const PriceChecker = () => {
                   <div className='px-4 flex flex-col gap-2'>
                     <label>Serials </label>
                     <select type='text'
-                      className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200'
+                      className='w-full border h-8 rounded-md px-2 font-semibold border-gray-200'
                       onChange={handleSerialChange}
                     >
                       <option value="none">-select-</option>
@@ -612,7 +612,7 @@ const PriceChecker = () => {
 
                   <div className='px-4 flex flex-col gap-2 text-[10.5px]'>
                     <label>Expiry Date</label>
-                    <input type='date' className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200' placeholder='Batch' />
+                    <input type='date' className='w-full border h-8 rounded-md px-2 font-semibold border-gray-200' placeholder='Batch' />
                   </div>
 
                 </div>
