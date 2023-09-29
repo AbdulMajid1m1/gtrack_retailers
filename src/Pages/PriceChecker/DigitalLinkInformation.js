@@ -10,6 +10,7 @@ import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import gs1logo from "../../Images/gs1.png";
+import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 import DataTable from '../../Components/Datatable/Datatable';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -36,6 +37,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
   const [productRecall, setProductRecall] = useState([]);
   const [packagingComposition, setPackagingComposition] = useState([]);
   const [electronicLeaflets, setElectronicLeaflets] = useState([]);
+  const { currentUser } = useContext(CurrentUserContext);
 
 
   const handleDelete = (id) => {
