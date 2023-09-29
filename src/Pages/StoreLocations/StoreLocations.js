@@ -40,10 +40,12 @@ const StoreLocations = () => {
                 setData(response?.data?.GlnProducts || []);
                 setFilteredData(response?.data?.GlnProducts ?? [])
                 setIsLoading(false)
+
             }
             catch (err) {
                 console.log(err);
                 setIsLoading(false)
+
             }
         };
 

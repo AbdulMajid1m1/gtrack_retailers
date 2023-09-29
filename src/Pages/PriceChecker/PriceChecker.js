@@ -122,18 +122,19 @@ const PriceChecker = () => {
           .get(`/getProductContentByGtin/${result.gtin}`)
           .then((secondResponse) => {
             if (secondResponse.data && secondResponse.data.length > 0) {
-            
+
               const firstNonNullOrUndefinedObject = secondResponse.data.find(item => item.unitPrice !== null && item.unitPrice !== undefined);
 
               if (firstNonNullOrUndefinedObject) {
                 // Set the product price from the first non-null object
                 setProductPriceState(firstNonNullOrUndefinedObject.unitPrice);
-              } 
+              }
               if (firstNonNullOrUndefinedObject === undefined) {
                 // agar value undefined hai to main state ko null kr raha ho
                 setProductPriceState(null);
               }
-            }})
+            }
+          })
           .catch((secondError) => {
             console.log(secondError);
             // setProductPriceState([]);
@@ -445,14 +446,15 @@ const PriceChecker = () => {
                   <img src={data.gtinArr.productImageUrl} alt="Product" className="w-1/2 h-32" />
 
                 )}
-
-                <p className="text-center font-bold mt-2">{productPriceState} SAR</p>
+                {productPriceState &&
+                  <p className="text-center font-bold mt-2">{productPriceState} SAR</p>
+                }
               </div>
             </div>
 
-           
+
             {/* Map Code */}
-            <Box sx={{ display: 'flex' , marginTop: '-45px'}}>
+            <Box sx={{ display: 'flex', marginTop: '-45px' }}>
               <AppBar
                 className='fortrans'
                 position='fixed'
@@ -571,14 +573,14 @@ const PriceChecker = () => {
               </Box>
             </Box>
 
-           {/* Filter Barcode Code */}
-           <div className='h-auto -mt-5'>
+            {/* Filter Barcode Code */}
+            <div className='h-auto -mt-5'>
               <div className='h-auto p-2 2xl:h-24 xl:h-24 lg:h-24 w-full border-2 border-gray-200 rounded-md'>
                 {/* <div className='p-4 font-semibold flex flex-col gap-2'>
                   <label className='text-black text-2xl'>Filter By</label>
                   <hr />
                 </div> */}
-                <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4'>
+                <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4 text-[10.5px]'>
                   <div className='px-4 flex flex-col gap-2'>
                     <label>Batches <span className='text-red-500'>*</span></label>
                     <select
@@ -608,7 +610,7 @@ const PriceChecker = () => {
                     </select>
                   </div>
 
-                  <div className='px-4 flex flex-col gap-2'>
+                  <div className='px-4 flex flex-col gap-2 text-[10.5px]'>
                     <label>Expiry Date</label>
                     <input type='date' className='w-full border h-10 rounded-md px-5 font-semibold border-gray-200' placeholder='Batch' />
                   </div>
@@ -616,8 +618,8 @@ const PriceChecker = () => {
                 </div>
               </div>
             </div>
-            </div>
-          
+          </div>
+
 
 
 
