@@ -39,7 +39,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
   const [electronicLeaflets, setElectronicLeaflets] = useState([]);
   const { currentUser } = useContext(CurrentUserContext);
 
-
+  
   const handleDelete = (id) => {
     console.log(id);
   }
@@ -796,7 +796,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 </div>
                 <div>
                   <p className='font-semibold'>Complete Data</p>
-                  <p>This number is registered to company: : <span className='font-semibold'>Test</span></p>
+                  <p>This number is registered to company: : <span className='font-semibold'>{currentUser?.user?.company_name_eng}</span></p>
                 </div>
             </div>
         </div>
