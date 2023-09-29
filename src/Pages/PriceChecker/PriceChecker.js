@@ -581,11 +581,11 @@ const PriceChecker = () => {
                   <hr />
                 </div> */}
                 <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4 text-[10.5px]'>
-                  <div className='px-4 flex flex-col gap-2'>
+                  <div className='px-4 flex flex-col gap-1'>
                     <label>Batches <span className='text-red-500'>*</span></label>
                     <select
                       type='text'
-                      className='w-full border h-8 rounded-md px-2 font-semibold border-gray-200'
+                      className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200'
                       onChange={handleBatchChange}
                     >
                       <option value="none">-select-</option>
@@ -597,10 +597,10 @@ const PriceChecker = () => {
                   </div>
 
 
-                  <div className='px-4 flex flex-col gap-2'>
+                  <div className='px-4 flex flex-col gap-1'>
                     <label>Serials </label>
                     <select type='text'
-                      className='w-full border h-8 rounded-md px-2 font-semibold border-gray-200'
+                      className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200'
                       onChange={handleSerialChange}
                     >
                       <option value="none">-select-</option>
@@ -610,9 +610,9 @@ const PriceChecker = () => {
                     </select>
                   </div>
 
-                  <div className='px-4 flex flex-col gap-2 text-[10.5px]'>
+                  <div className='px-4 flex flex-col gap-1 text-[10.5px]'>
                     <label>Expiry Date</label>
-                    <input type='date' className='w-full border h-8 rounded-md px-2 font-semibold border-gray-200' placeholder='Batch' />
+                    <input type='date' className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200' placeholder='Batch' />
                   </div>
 
                 </div>
