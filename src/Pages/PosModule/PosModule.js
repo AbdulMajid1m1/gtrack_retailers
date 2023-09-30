@@ -250,22 +250,21 @@ const PosModule = () => {
                     F-4 Last Receipt
                   </div>
 
-                {/* third Row */}
-                <div 
-                  // className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-orange'
-                  // onClick={toggleModal}
-                  >
-                  {/* I call the popup Component their */}
-                  <SalesAmountPrint />
-                </div>
-                <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-black'>
-                  F-8 Z-Report
-                </div>
-                <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-amber-600'>
-                  F-5 Returns Items
-                </div>
-                <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-[#0978A2]'>
-                  F-4 Last Receipt
+                  {/* third Row */}
+                  <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-orange'>
+                    F-3 Tender Cash
+                  </div>
+                  <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-black'>
+                    F-8 Z-Report
+                  </div>
+                  <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-amber-600'>
+                    F-5 Returns Items
+                  </div>
+                  <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-[#0978A2]'>
+                    F-4 Last Receipt
+                  </div>
+
+                  
                 </div>
               </div>
             </div>
