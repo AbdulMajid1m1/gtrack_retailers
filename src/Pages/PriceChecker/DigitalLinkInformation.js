@@ -10,6 +10,7 @@ import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import gs1logo from "../../Images/gs1.png";
+import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 import DataTable from '../../Components/Datatable/Datatable';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -36,8 +37,9 @@ const DigitalLinkInformation = ({ gtinData }) => {
   const [productRecall, setProductRecall] = useState([]);
   const [packagingComposition, setPackagingComposition] = useState([]);
   const [electronicLeaflets, setElectronicLeaflets] = useState([]);
+  const { currentUser } = useContext(CurrentUserContext);
 
-
+  
   const handleDelete = (id) => {
     console.log(id);
   }
@@ -794,7 +796,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 </div>
                 <div>
                   <p className='font-semibold'>Complete Data</p>
-                  <p>This number is registered to company: : <span className='font-semibold'>Test</span></p>
+                  <p>This number is registered to company: : <span className='font-semibold'>{currentUser?.user?.company_name_eng}</span></p>
                 </div>
             </div>
         </div>

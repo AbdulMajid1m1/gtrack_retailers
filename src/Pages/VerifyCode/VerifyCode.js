@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { RiseLoader } from "react-spinners";
-// import { CurrentUserContext } from '../../context/CurrentUserContext'
+import { CurrentUserContext } from '../../Contexts/CurrentUserContext'
 const VerifyCode = () => {
   const [activity, setActivity] = useState("");
   const [activityID, setActivityID] = useState([])
@@ -12,7 +12,7 @@ const VerifyCode = () => {
   const [generated_otp, setGenerated_otp] = useState("");
   const [member_otp, setMember_otp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-//   const { updateCurrentUser } = useContext(CurrentUserContext);
+  const { updateCurrentUser } = useContext(CurrentUserContext);
 
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ const VerifyCode = () => {
           "currentUser",
           JSON.stringify(response?.data?.memberData)
         );
-        // updateCurrentUser(response?.data?.memberData);
+        updateCurrentUser(response?.data?.memberData);
 
         navigate("/dashboard");
       })
