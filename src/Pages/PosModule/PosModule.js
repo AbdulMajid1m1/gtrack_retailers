@@ -251,9 +251,16 @@ const PosModule = () => {
                   </div>
 
                   {/* third Row */}
-                  <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-orange'>
+                  {/* <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-orange'>
                     F-3 Tender Cash
-                  </div>
+                  </div> */}
+                  <div 
+                  // className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-orange'
+                  // onClick={toggleModal}
+                  >
+                  {/* I call the popup Component their */}
+                  <SalesAmountPrint />
+                </div>
                   <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-black'>
                     F-8 Z-Report
                   </div>
