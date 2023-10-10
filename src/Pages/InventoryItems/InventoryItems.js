@@ -10,6 +10,7 @@ import newRequest from "../../utils/userRequest";
 import DataTable from "../../Components/Datatable/Datatable";
 import { SnackbarContext } from "../../Contexts/SnackbarContext";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
+import CustomSnakebar from "../../utils/CustomSnackbar";
 
 
 const InventoryItems = () => {
