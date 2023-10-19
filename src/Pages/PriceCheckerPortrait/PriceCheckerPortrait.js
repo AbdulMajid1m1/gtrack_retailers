@@ -401,7 +401,7 @@ const PriceCheckerPortrait = () => {
                 <div className="w-full md:w-2/3">
                   <div className="container mx-auto p-1">
                     <div className="overflow-x-auto">
-                      <table className="table-auto text-[10.5px] min-w-max w-full">
+                      <table className="table-auto text-[13.5px] min-w-max w-full">
                         <tbody>
                           {products.map((product, index) => (
                             <tr key={index}>
@@ -427,7 +427,7 @@ const PriceCheckerPortrait = () => {
                 </div>
               </div>
             </div>
-            
+
             <div> 
               <div className='mt-3'>
                   <DigitalLinkInformation gtinData={data?.gtinArr} />
