@@ -402,7 +402,7 @@ const PriceCheckerPortrait = () => {
                   <div className="container mx-auto p-1">
                     <div className="overflow-x-auto">
                       <table className="table-auto text-[13.5px] min-w-max w-full">
-                        <tbody>
+                        <tbody> 
                           {products.map((product, index) => (
                             <tr key={index}>
                               <td className="border px-4 py-1">{product.name}</td>
