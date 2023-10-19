@@ -15,6 +15,7 @@ import DataTableProvider from "./Contexts/DataTableContext";
 import { CurrentUserProvider } from "./Contexts/CurrentUserContext";
 import { SnackbarProvider } from "./Contexts/SnackbarContext";
 import StoreLocations from "./Pages/StoreLocations/StoreLocations";
+import PriceCheckerPortrait from "./Pages/PriceCheckerPortrait/PriceCheckerPortrait";
 
 const App = () => {
   const MainLayout = ({ children }) => {
@@ -41,6 +42,7 @@ const App = () => {
                   <Route path="verify" element={<VerifyCode />} />
 
                   <Route path="/price-checker" element={<PriceChecker />} />
+                  <Route path="/price-checker-portrait" element={<PriceCheckerPortrait />} />
                   <Route path="/pos-module" element={<PosModule />} />
 
 

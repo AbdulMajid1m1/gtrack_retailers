@@ -10,6 +10,7 @@ import profile from '../../Images/profile.png'
 import inventory from '../../Images/inventory.png'
 import store from '../../Images/store.png'
 import priceChecker from "../../Images/priceChecker.png"
+import pricecheckerportrait from "../../Images/pricecheckerportrait.png"
 import pos from "../../Images/pos.png"
 import logout from "../../Images/logout.png"
 
@@ -218,11 +219,32 @@ const SideBar = () => {
             <p className="sidebar-text">Price Checker</p>
           </div>
 
+          <div
+            className={`main-images-container ${selectedItem === '/price-checker-portrait' ? 'selected-item' : ''}`}
+            onClick={() => handleItemClick('/price-checker-portrait')}
+            onContextMenu={(event) =>
+              handleContextMenu(event, '/price-checker-portrait')
+            }
+
+          >
+            <img
+              src={pricecheckerportrait}
+              className="main-inside-image bg-white rounded-full"
+              alt=""
+            />
+            <p className="sidebar-text">Price Checker Portrait</p>
+          </div>
+
           <div className="main-images-container" onClick={() => navigate("/")}>
             <img src={logout} className="main-inside-image bg-white rounded-full" alt="" />
             <p className="sidebar-text">Log-out</p>
           </div>
 
+          {/* Implement Any Icon above the Hide Icons */}
+          <div className="main-images-container-hide">
+            <img src={internal} className="main-inside-image" alt="" />
+            <p className="sidebar-text">Hide</p>
+          </div>
         </div>
 
         {/* This two icons  */}
