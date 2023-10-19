@@ -254,13 +254,13 @@ const PosModule = () => {
                   {/* <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-orange'>
                     F-3 Tender Cash
                   </div> */}
-                  <div 
+                  <div
                   // className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-orange'
                   // onClick={toggleModal}
                   >
-                  {/* I call the popup Component their */}
-                  <SalesAmountPrint />
-                </div>
+                    {/* I call the popup Component their */}
+                    <SalesAmountPrint />
+                  </div>
                   <div className='h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-black'>
                     F-8 Z-Report
                   </div>
@@ -271,7 +271,7 @@ const PosModule = () => {
                     F-4 Last Receipt
                   </div>
 
-                  
+
                 </div>
               </div>
             </div>
@@ -310,12 +310,14 @@ const PosModule = () => {
                 <div className='flex justify-between items-center p-1'>
                   <label>Total Vat 15%</label>
                   <input type='text' className='h-10 w-[60%] p-2' placeholder='Total Vat'
+                    disabled
                     value={totalVat.toFixed(2)}
                   />
                 </div>
                 <div className='flex justify-between items-center p-1'>
                   <label>Total Amount</label>
                   <input type='text' className='h-10 w-[60%] p-2' placeholder='Total Amount'
+                    disabled
                     value={totalAmount.toFixed(2)}
                   />
                 </div>
