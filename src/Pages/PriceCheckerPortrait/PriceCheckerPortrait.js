@@ -462,7 +462,7 @@ const PriceCheckerPortrait = () => {
                 {/* <div className='p-4 font-semibold flex flex-col gap-2'>
                   <label className='text-black text-2xl'>Filter By</label>
                   <hr />
-                </div> */}
+                </div> */} 
                 <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4 text-[10.5px]'>
                   <div className='px-4 flex flex-col gap-1'>
                     <label>Batches <span className='text-red-500'>*</span></label>
