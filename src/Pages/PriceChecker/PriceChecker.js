@@ -101,7 +101,7 @@ const PriceChecker = () => {
     };
 
     axios
-      .get("https://gs1ksa.org/api/search/member/gtin", { params: bodyData })
+      .post("https://gs1ksa.org/api/search/member/gtin", { gtin: result.gtin })
       .then((response) => {
         if (response.data?.gtinArr === undefined || Object.keys(response.data?.gtinArr).length === 0) {
           // Display error message when the array is empty
@@ -212,15 +212,20 @@ const PriceChecker = () => {
   }
 
   const fetchLocations = async (data) => {
-
+    const bodyData = {
+      // gtin: barcodeData?.gtin,
+      gtin: data?.gtin,
+    };
     console.log(selectedBatch, selectedSerial)
     if (selectedBatch) bodyData.batch = selectedBatch;
     if (selectedSerial) bodyData.serial = selectedSerial;
 
 
+    console.log(bodyData)
     try {
-      axios
-        .post("https://gs1ksa.org/api/search/member/gtin", { gtin: result.gtin })
+      const res = await axios.get(`https://gs1ksa.org/api/search/event/gtin/with/maps`, {
+        params: bodyData
+      });
       const locations = res.data?.googleMap?.locations;
       console.log(locations)
 

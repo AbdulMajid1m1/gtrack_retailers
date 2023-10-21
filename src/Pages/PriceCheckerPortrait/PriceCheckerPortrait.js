@@ -40,6 +40,7 @@ const PriceCheckerPortrait = () => {
 
   const handleQrCodeSuccess = (decodedText) => {
     setGTIN(decodedText);
+    handleSearch(decodedText);
     setScannerVisible(false);
   };
 
@@ -112,10 +113,9 @@ const PriceCheckerPortrait = () => {
 
   };
 
-
-  const handleSearch = () => {
+  const handleSearch = (gtinNo) => {
     // 6281000000113-25 2023-batch01-01 2023-BSW220200512603
-    const result = parseInput(gtin);
+    const result = parseInput(gtinNo);
     setSearchedData(result)
     // sessionStorage.setItem("barcodeData", JSON.stringify(result));
 
@@ -124,16 +124,33 @@ const PriceCheckerPortrait = () => {
     console.log(result)
     //  mapDate, batch and serial are in result if needed".
     if (!result.gtin) {
-      openSnackbar("Please enter GTIN", 'error');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please enter GTIN',
+
+        timer: 2000,
+        showConfirmButton: false,
+
+      })
       return;
     }
+
 
     axios
       .post("https://gs1ksa.org/api/search/member/gtin", { gtin: result.gtin })
       .then((response) => {
         if (response.data?.gtinArr === undefined || Object.keys(response.data?.gtinArr).length === 0) {
           // Display error message when the array is empty
-          openSnackbar("No data found", 'error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No data found',
+
+            timer: 2000,
+            showConfirmButton: false,
+
+          })
 
           setData(null);
           return;
@@ -165,7 +182,17 @@ const PriceCheckerPortrait = () => {
           })
           .catch((secondError) => {
             console.log(secondError);
+
             // setProductPriceState([]);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: secondError?.response?.data?.message ?? 'Something went wrong',
+
+              timer: 2000,
+              showConfirmButton: false,
+
+            })
           });
 
 
@@ -175,9 +202,84 @@ const PriceCheckerPortrait = () => {
       .catch((error) => {
         console.log(error);
         setData(null);
-        openSnackbar("Something went wrong", 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error?.response?.data?.message ?? 'Something went wrong',
+
+          timer: 2000,
+          showConfirmButton: false,
+
+        })
       });
   };
+
+
+  // const handleSearch = () => {
+  //   // 6281000000113-25 2023-batch01-01 2023-BSW220200512603
+  //   const result = parseInput(gtin);
+  //   setSearchedData(result)
+  //   // sessionStorage.setItem("barcodeData", JSON.stringify(result));
+
+  //   // I pass the data directly to the fetchLocations function
+  //   fetchLocations(result);
+  //   console.log(result)
+  //   //  mapDate, batch and serial are in result if needed".
+  //   if (!result.gtin) {
+  //     openSnackbar("Please enter GTIN", 'error');
+  //     return;
+  //   }
+
+  //   axios
+  //     .post("https://gs1ksa.org/api/search/member/gtin", { gtin: result.gtin })
+  //     .then((response) => {
+  //       if (response.data?.gtinArr === undefined || Object.keys(response.data?.gtinArr).length === 0) {
+  //         // Display error message when the array is empty
+  //         openSnackbar("No data found", 'error');
+
+  //         setData(null);
+  //         return;
+  //       }
+  //       console.log(response?.data);
+  //       setData(response?.data);
+  //       sessionStorage.setItem("gtinData", JSON.stringify(response?.data));
+  //       // sessionStorage.setItem("EventgtinArr", JSON.stringify(response?.data?.gtinArr));
+  //       setGTIN(gtin)
+
+
+  //       // Product Price ki api 
+  //       newRequest
+  //         .get(`/getProductContentByGtin/${result.gtin}`)
+  //         .then((secondResponse) => {
+  //           if (secondResponse.data && secondResponse.data.length > 0) {
+
+  //             const firstNonNullOrUndefinedObject = secondResponse.data.find(item => item.unitPrice !== null && item.unitPrice !== undefined);
+
+  //             if (firstNonNullOrUndefinedObject) {
+  //               // Set the product price from the first non-null object
+  //               setProductPriceState(firstNonNullOrUndefinedObject.unitPrice);
+  //             }
+  //             if (firstNonNullOrUndefinedObject === undefined) {
+  //               // agar value undefined hai to main state ko null kr raha ho
+  //               setProductPriceState(null);
+  //             }
+  //           }
+  //         })
+  //         .catch((secondError) => {
+  //           console.log(secondError);
+  //           // setProductPriceState([]);
+  //         });
+
+
+
+  //       fetchLocations();
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setData(null);
+  //       openSnackbar("Something went wrong", 'error');
+  //     });
+  // };
 
 
 
@@ -418,6 +520,7 @@ const PriceCheckerPortrait = () => {
           <div className='px-2'>
             <div className="flex items-center">
               <input
+                onBlur={() => handleSearch(gtin)}
                 type="text"
                 className="flex-grow bg-yellow-100 border-2 h-10 rounded-md px-5 text-black border-gray-600 mt-2"
                 placeholder="Scan your Barcode here...."
