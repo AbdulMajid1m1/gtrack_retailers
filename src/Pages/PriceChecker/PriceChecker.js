@@ -212,20 +212,15 @@ const PriceChecker = () => {
   }
 
   const fetchLocations = async (data) => {
-    const bodyData = {
-      // gtin: barcodeData?.gtin,
-      gtin: data?.gtin,
-    };
+
     console.log(selectedBatch, selectedSerial)
     if (selectedBatch) bodyData.batch = selectedBatch;
     if (selectedSerial) bodyData.serial = selectedSerial;
 
 
-    console.log(bodyData)
     try {
-      const res = await axios.get(`https://gs1ksa.org/api/search/event/gtin/with/maps`, {
-        params: bodyData
-      });
+      axios
+        .post("https://gs1ksa.org/api/search/member/gtin", { gtin: result.gtin })
       const locations = res.data?.googleMap?.locations;
       console.log(locations)
 
