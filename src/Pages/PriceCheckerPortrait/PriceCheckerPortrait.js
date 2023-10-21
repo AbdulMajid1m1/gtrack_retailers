@@ -7,11 +7,11 @@ import { GoogleMap, StandaloneSearchBox, Marker, Polyline, DirectionsRenderer, O
 import DigitalLinkInformation from './DigitalLinkInformation';
 import backarrow from "../../Images/backarrow1.png"
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import { Html5Qrcode } from 'html5-qrcode';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import newRequest from '../../utils/userRequest';
-
+import { CameraAlt, Close } from '@mui/icons-material';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 const style = {
   width: '95%',
   height: '80%'
@@ -34,47 +34,38 @@ const PriceCheckerPortrait = () => {
   const navigate = useNavigate();
   const { openSnackbar } = useContext(SnackbarContext);
 
-  const [isScannerActive, setIsScannerActive] = useState(false);
-  const scannerRef = useRef(null);
-  const html5QrCodeRef = useRef(null);
 
-  const startScanner = async () => {
-    if (html5QrCodeRef.current) {
-      return;  // Already initialized, return early.
-    }
+  const [isScannerVisible, setScannerVisible] = useState(false);
+  const qrcodeRegionId = "html5qr-code-full-region";
 
-    const html5QrCode = new Html5Qrcode(scannerRef.current.id);
-    html5QrCodeRef.current = html5QrCode;
-    try {
-      await html5QrCode.start(
-        { facingMode: "environment" }, // Use rear camera
-        (decodedText, _) => {
-          setGTIN(decodedText); // Set the decoded text to the state
-          stopScanner(); // Stop scanning after a successful scan
-        },
-        (errorMessage) => {
-          console.error(`QR Code Error: ${errorMessage}`);
-        }
-      );
-      setIsScannerActive(true);
-    } catch (error) {
-      console.error(`QR Code Initialization Error: ${error}`);
-    }
-  }
+  const handleQrCodeSuccess = (decodedText) => {
+    setGTIN(decodedText);
+    setScannerVisible(false);
+  };
 
-  const stopScanner = () => {
-    if (html5QrCodeRef.current && isScannerActive) {
-      html5QrCodeRef.current.stop();
-      setIsScannerActive(false);
-      html5QrCodeRef.current = null;
-    }
-  }
+  const handleQrCodeError = (error) => {
+    console.error(`Error scanning: ${error}`);
+  };
 
   useEffect(() => {
+    let html5QrcodeScanner;
+    if (isScannerVisible) {
+      const config = {
+        fps: 10,
+        // Add more configurations as needed
+      };
+      html5QrcodeScanner = new Html5QrcodeScanner(qrcodeRegionId, config);
+      html5QrcodeScanner.render(handleQrCodeSuccess, handleQrCodeError);
+    }
+
     return () => {
-      stopScanner();
+      if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear().catch(error => {
+          console.error("Failed to clear html5QrcodeScanner. ", error);
+        });
+      }
     };
-  }, []);
+  }, [isScannerVisible]);
 
   // Full Screen Code
   const [isFullscreen, setIsFullscreen] = useState(document.fullscreenElement != null);
@@ -425,22 +416,26 @@ const PriceCheckerPortrait = () => {
       <div className='flex justify-center items-center'>
         <div className='sm:w-[65%] lg:w-[65%] w-full h-[100vh] overflow-y-auto bg-blue-300 bg-opacity-20 px-0 sm:px-2 sm:py-2'>
           <div className='px-2'>
-            <input
-              type="text"
-              className="w-full bg-yellow-100 border-2 h-10 rounded-md px-5 font-semibold text-black border-gray-600 mt-2"
-              placeholder="Scan your Barcode here...."
-              value={gtin}
-              onChange={(event) => setGTIN(event.target.value)}
-              onBlur={handleSearch}
-            />
+            <div className="flex items-center">
+              <input
+                type="text"
+                className="flex-grow bg-yellow-100 border-2 h-10 rounded-md px-5 text-black border-gray-600 mt-2"
+                placeholder="Scan your Barcode here...."
+                value={gtin}
+                onChange={(event) => setGTIN(event.target.value)}
+              />
+              <div className="pl-4 flex items-center">
+                {isScannerVisible
+                  ? <Close className="cursor-pointer" onClick={() => setScannerVisible(false)} />
+                  : <CameraAlt className="cursor-pointer" onClick={() => setScannerVisible(true)} />
+                }
+              </div>
+            </div>
 
-            <button onClick={startScanner}>
-              Scan QR Code
-            </button>
-            {isScannerActive && <button onClick={stopScanner}>
-              Close Scanner
-            </button>}
-            <div ref={scannerRef} id="scanner" style={{ width: '300px', height: '300px' }}></div>
+            {isScannerVisible && <div className="w-full max-w-xl mx-auto mt-4" id={qrcodeRegionId} />}
+
+
+
 
             <div className="flex flex-col md:flex-row border-2 border-dashed mt-3">
               <div className="w-full md:w-2/3">
@@ -652,7 +647,7 @@ const PriceCheckerPortrait = () => {
 
 
         </div>
-      </div>
+      </div >
     </>
   )
 }
