@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Swal from 'sweetalert2';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,6 +7,7 @@ import { GoogleMap, StandaloneSearchBox, Marker, Polyline, DirectionsRenderer, O
 import DigitalLinkInformation from './DigitalLinkInformation';
 import backarrow from "../../Images/backarrow1.png"
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import { Html5Qrcode } from 'html5-qrcode';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import newRequest from '../../utils/userRequest';
@@ -26,13 +27,54 @@ const drawerWidth = 220
 
 const PriceCheckerPortrait = () => {
   const [gtin, setGTIN] = useState("");
+  
   const [data, setData] = useState(null);
   const [searchedData, setSearchedData] = useState({}); // State to store API data
   const [productPriceState, setProductPriceState] = useState(null); // State to store API data
   const navigate = useNavigate();
   const { openSnackbar } = useContext(SnackbarContext);
 
+  const [isScannerActive, setIsScannerActive] = useState(false);
+  const scannerRef = useRef(null);
+  const html5QrCodeRef = useRef(null);
 
+  const startScanner = async () => {
+    if (html5QrCodeRef.current) {
+      return;  // Already initialized, return early.
+    }
+
+    const html5QrCode = new Html5Qrcode(scannerRef.current.id);
+    html5QrCodeRef.current = html5QrCode;
+    try {
+      await html5QrCode.start(
+        { facingMode: "environment" }, // Use rear camera
+        (decodedText, _) => {
+          setGTIN(decodedText); // Set the decoded text to the state
+          stopScanner(); // Stop scanning after a successful scan
+        },
+        (errorMessage) => {
+          console.error(`QR Code Error: ${errorMessage}`);
+        }
+      );
+      setIsScannerActive(true);
+    } catch (error) {
+      console.error(`QR Code Initialization Error: ${error}`);
+    }
+  }
+
+  const stopScanner = () => {
+    if (html5QrCodeRef.current && isScannerActive) {
+      html5QrCodeRef.current.stop();
+      setIsScannerActive(false);
+      html5QrCodeRef.current = null;
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      stopScanner();
+    };
+  }, []);
   // Full Screen Code
   const [isFullscreen, setIsFullscreen] = useState(document.fullscreenElement != null);
 
@@ -94,14 +136,8 @@ const PriceCheckerPortrait = () => {
       return;
     }
 
-    const bodyData = {
-      // gtin: gtin,
-      gtin: result.gtin,
-
-    };
-
     axios
-      .get("https://gs1ksa.org/api/search/member/gtin", { params: bodyData })
+      .post("https://gs1ksa.org/api/search/member/gtin", { gtin: result.gtin })
       .then((response) => {
         if (response.data?.gtinArr === undefined || Object.keys(response.data?.gtinArr).length === 0) {
           // Display error message when the array is empty
@@ -387,225 +423,230 @@ const PriceCheckerPortrait = () => {
     <>
       <div className='flex justify-center items-center'>
         <div className='sm:w-[65%] lg:w-[65%] w-full h-[100vh] overflow-y-auto bg-blue-300 bg-opacity-20 px-0 sm:px-2 sm:py-2'>
-           <div className='px-2'>   
-              <input
-                type="text"
-                className="w-full bg-yellow-100 border-2 h-10 rounded-md px-5 font-semibold text-black border-gray-600 mt-2"
-                placeholder="Scan your Barcode here...."
-                value={gtin}
-                onChange={(event) => setGTIN(event.target.value)}
-                onBlur={handleSearch}
-              />
-             
-              <div className="flex flex-col md:flex-row border-2 border-dashed mt-3">
-                <div className="w-full md:w-2/3">
-                  <div className="container mx-auto p-1">
-                    <div className="overflow-x-auto">
-                      <table className="table-auto text-[13.5px] min-w-max w-full">
-                        <tbody>
-                          {products.map((product, index) => (
-                            <tr key={index}>
-                              <td className="border px-4 py-1">{product.name}</td>
-                              <td className="border px-4 py-1 font-semibold">{product.value}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+          <div className='px-2'>
+            <input
+              type="text"
+              className="w-full bg-yellow-100 border-2 h-10 rounded-md px-5 font-semibold text-black border-gray-600 mt-2"
+              placeholder="Scan your Barcode here...."
+              value={gtin}
+              onChange={(event) => setGTIN(event.target.value)}
+              onBlur={handleSearch}
+            />
+
+            <button onClick={startScanner}>
+              Scan QR Code
+            </button>
+            <div ref={scannerRef} id="scanner" style={{ width: '300px', height: '300px' }}></div>
+
+            <div className="flex flex-col md:flex-row border-2 border-dashed mt-3">
+              <div className="w-full md:w-2/3">
+                <div className="container mx-auto p-1">
+                  <div className="overflow-x-auto">
+                    <table className="table-auto text-[13.5px] min-w-max w-full">
+                      <tbody>
+                        {products.map((product, index) => (
+                          <tr key={index}>
+                            <td className="border px-4 py-1">{product.name}</td>
+                            <td className="border px-4 py-1 font-semibold">{product.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
+              </div>
 
-                <div className="w-full md:w-1/3 flex flex-col justify-center items-center -mt-6 p-8">
-                  {/* Add your image element here */}
-                  {data?.gtinArr?.productImageUrl && (
-                    <img src={data.gtinArr.productImageUrl} alt="Product" className="w-1/2 h-32" />
+              <div className="w-full md:w-1/3 flex flex-col justify-center items-center -mt-6 p-8">
+                {/* Add your image element here */}
+                {data?.gtinArr?.productImageUrl && (
+                  <img src={data.gtinArr.productImageUrl} alt="Product" className="w-1/2 h-32" />
 
-                  )}
-                  {productPriceState &&
-                    <p className="text-center font-bold mt-2">{productPriceState} SAR</p>
-                  }
-                </div>
+                )}
+                {productPriceState &&
+                  <p className="text-center font-bold mt-2">{productPriceState} SAR</p>
+                }
               </div>
             </div>
+          </div>
 
-            <div> 
-              <div className='mt-3'>
-                  <DigitalLinkInformation gtinData={data?.gtinArr} />
-              </div>
-            </div> 
-            
+          <div>
+            <div className='mt-3'>
+              <DigitalLinkInformation gtinData={data?.gtinArr} />
+            </div>
+          </div>
+
 
           {/* Filter Barcode Code */}
-            <div className='h-auto px-2 mt-3'>
-              <div className='h-auto p-2 2xl:h-24 xl:h-24 lg:h-24 w-full border-2 border-gray-200 rounded-md'>
-                {/* <div className='p-4 font-semibold flex flex-col gap-2'>
+          <div className='h-auto px-2 mt-3'>
+            <div className='h-auto p-2 2xl:h-24 xl:h-24 lg:h-24 w-full border-2 border-gray-200 rounded-md'>
+              {/* <div className='p-4 font-semibold flex flex-col gap-2'>
                   <label className='text-black text-2xl'>Filter By</label>
                   <hr />
                 </div> */}
-                <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4 text-[10.5px]'>
-                  <div className='px-4 flex flex-col gap-1'>
-                    <label>Batches <span className='text-red-500'>*</span></label>
-                    <select
-                      type='text'
-                      className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200'
-                      onChange={handleBatchChange}
-                    >
-                      <option value="none">-select-</option>
-                      {searchedData?.batch && (
-                        <option value={searchedData?.batch}>{searchedData?.batch}</option>
-                      )}
+              <div className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 mb-4 text-[10.5px]'>
+                <div className='px-4 flex flex-col gap-1'>
+                  <label>Batches <span className='text-red-500'>*</span></label>
+                  <select
+                    type='text'
+                    className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200'
+                    onChange={handleBatchChange}
+                  >
+                    <option value="none">-select-</option>
+                    {searchedData?.batch && (
+                      <option value={searchedData?.batch}>{searchedData?.batch}</option>
+                    )}
 
-                    </select>
-                  </div>
-
-
-                  <div className='px-4 flex flex-col gap-1'>
-                    <label>Serials </label>
-                    <select type='text'
-                      className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200'
-                      onChange={handleSerialChange}
-                    >
-                      <option value="none">-select-</option>
-                      {searchedData?.serial && (
-                        <option value={searchedData?.serial}>{searchedData?.serial}</option>
-                      )}
-                    </select>
-                  </div>
-
-                  <div className='px-4 flex flex-col gap-1 text-[10.5px]'>
-                    <label>Expiry Date</label>
-                    <input type='date' className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200' placeholder='Batch' />
-                  </div>
-
+                  </select>
                 </div>
+
+
+                <div className='px-4 flex flex-col gap-1'>
+                  <label>Serials </label>
+                  <select type='text'
+                    className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200'
+                    onChange={handleSerialChange}
+                  >
+                    <option value="none">-select-</option>
+                    {searchedData?.serial && (
+                      <option value={searchedData?.serial}>{searchedData?.serial}</option>
+                    )}
+                  </select>
+                </div>
+
+                <div className='px-4 flex flex-col gap-1 text-[10.5px]'>
+                  <label>Expiry Date</label>
+                  <input type='date' className='w-full border h-7 rounded-md px-2 font-semibold border-gray-200' placeholder='Batch' />
+                </div>
+
               </div>
             </div>
-          
-            
+          </div>
 
-            {/* Map Code */}
-            <Box sx={{ display: 'flex', marginTop: '-45px' }}>
-              <AppBar
-                className='fortrans'
-                position='fixed'
-                sx={{
-                  width: { sm: `calc(100% - ${drawerWidth}px)` },
-                  ml: { sm: `${drawerWidth}px` }
-                }}
-              ></AppBar>
-              <Box
-                className=''
-                sx={{
-                  flexGrow: 1,
-                  my: 5,
-                  mx: 1,
-                  width: { sm: `calc(100% - ${drawerWidth}px)` }
-                }}
-              >
-                <div className="container mt-5" style={{ width: "100%" }}>
-                  <GoogleMap
-                    mapContainerStyle={{ height: '350px', width: '100%' }}
-                    center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : RiyadhLocation}
-                    zoom={currentLocation ? 13 : 10}
-                    onClick={handleMapClicked}
-                  >
-                    <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
-                      <input
-                        type="text"
-                        placeholder="Search for a location"
-                        style={{
-                          boxSizing: 'border-box',
-                          border: '1px solid transparent',
-                          width: '240px',
-                          height: '32px',
-                          padding: '0 12px',
-                          borderRadius: '3px',
-                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-                          fontSize: '14px',
-                          outline: 'none',
-                          textOverflow: 'ellipses',
-                          position: 'absolute',
-                          left: '50%',
-                          marginLeft: '-120px',
+
+
+          {/* Map Code */}
+          <Box sx={{ display: 'flex', marginTop: '-45px' }}>
+            <AppBar
+              className='fortrans'
+              position='fixed'
+              sx={{
+                width: { sm: `calc(100% - ${drawerWidth}px)` },
+                ml: { sm: `${drawerWidth}px` }
+              }}
+            ></AppBar>
+            <Box
+              className=''
+              sx={{
+                flexGrow: 1,
+                my: 5,
+                mx: 1,
+                width: { sm: `calc(100% - ${drawerWidth}px)` }
+              }}
+            >
+              <div className="container mt-5" style={{ width: "100%" }}>
+                <GoogleMap
+                  mapContainerStyle={{ height: '350px', width: '100%' }}
+                  center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : RiyadhLocation}
+                  zoom={currentLocation ? 13 : 10}
+                  onClick={handleMapClicked}
+                >
+                  <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+                    <input
+                      type="text"
+                      placeholder="Search for a location"
+                      style={{
+                        boxSizing: 'border-box',
+                        border: '1px solid transparent',
+                        width: '240px',
+                        height: '32px',
+                        padding: '0 12px',
+                        borderRadius: '3px',
+                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+                        fontSize: '14px',
+                        outline: 'none',
+                        textOverflow: 'ellipses',
+                        position: 'absolute',
+                        left: '50%',
+                        marginLeft: '-120px',
+                      }}
+                    />
+                  </StandaloneSearchBox>
+
+                  {currentLocation && <Marker position={RiyadhLocation} />}
+
+                  {filterLocationsBySelection(locationsapi).map((item, index) => (
+                    item && item.latitude && item.longitude && (
+                      <Marker
+                        key={index}
+                        position={{
+                          lat: parseFloat(item.latitude),
+                          lng: parseFloat(item.longitude),
                         }}
-                      />
-                    </StandaloneSearchBox>
-
-                    {currentLocation && <Marker position={RiyadhLocation} />}
-
-                    {filterLocationsBySelection(locationsapi).map((item, index) => (
-                      item && item.latitude && item.longitude && (
-                        <Marker
-                          key={index}
-                          position={{
-                            lat: parseFloat(item.latitude),
-                            lng: parseFloat(item.longitude),
-                          }}
-                          icon={
-                            // Check this serial number 
-                            // item.serial === barcodeData?.serial ? {
-                            item ? {
-                              url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                        icon={
+                          // Check this serial number 
+                          // item.serial === barcodeData?.serial ? {
+                          item ? {
+                            url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                            scaledSize: new window.google.maps.Size(40, 40)
+                          } :
+                            item.type === 'brand_owner' ? {
+                              url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                               scaledSize: new window.google.maps.Size(40, 40)
                             } :
-                              item.type === 'brand_owner' ? {
-                                url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                              {
+                                url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                                 scaledSize: new window.google.maps.Size(40, 40)
-                              } :
-                                {
-                                  url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                                  scaledSize: new window.google.maps.Size(40, 40)
-                                }
-                          }
-                          address={item.address}
-                          onMouseOver={() => setSelectedMarker({ index, position: { lat: parseFloat(item.latitude), lng: parseFloat(item.longitude) } })}
-                          onMouseOut={() => setSelectedMarker({ index: null, position: null })}
-                        />
-                      )
-                    ))}
-                    {directions && directions.map((direction, index) => (
-                      <DirectionsRenderer
-                        key={index}
-                        directions={direction}
-                        options={{ suppressMarkers: true }}
+                              }
+                        }
+                        address={item.address}
+                        onMouseOver={() => setSelectedMarker({ index, position: { lat: parseFloat(item.latitude), lng: parseFloat(item.longitude) } })}
+                        onMouseOut={() => setSelectedMarker({ index: null, position: null })}
                       />
-                    ))}
+                    )
+                  ))}
+                  {directions && directions.map((direction, index) => (
+                    <DirectionsRenderer
+                      key={index}
+                      directions={direction}
+                      options={{ suppressMarkers: true }}
+                    />
+                  ))}
 
-                    {selectedMarker.index !== null && (
-                      <OverlayView
-                        position={selectedMarker.position}
-                        mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                  {selectedMarker.index !== null && (
+                    <OverlayView
+                      position={selectedMarker.position}
+                      mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                    >
+                      <div
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.9)',
+                          border: '1px solid #ccc',
+                          padding: 10,
+                          borderRadius: 8,
+                          boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
+                          minWidth: 200,
+                        }}
                       >
-                        <div
-                          style={{
-                            background: 'rgba(255, 255, 255, 0.9)',
-                            border: '1px solid #ccc',
-                            padding: 10,
-                            borderRadius: 8,
-                            boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
-                            minWidth: 200,
-                          }}
-                        >
-                          <p style={{ fontWeight: 'bold', marginBottom: 5 }}>Gtrack Product Location Details</p>
-                          <p>Latitude: {locationsapi[selectedMarker.index].latitude}</p>
-                          <p>Longitude: {locationsapi[selectedMarker.index].longitude}</p>
-                          <br />
-                          <p className="font-semibold">EventID: {locationsapi[selectedMarker.index].name}</p>
-                        </div>
-                      </OverlayView>
-                    )}
-                  </GoogleMap>
+                        <p style={{ fontWeight: 'bold', marginBottom: 5 }}>Gtrack Product Location Details</p>
+                        <p>Latitude: {locationsapi[selectedMarker.index].latitude}</p>
+                        <p>Longitude: {locationsapi[selectedMarker.index].longitude}</p>
+                        <br />
+                        <p className="font-semibold">EventID: {locationsapi[selectedMarker.index].name}</p>
+                      </div>
+                    </OverlayView>
+                  )}
+                </GoogleMap>
 
 
 
-                </div>
+              </div>
 
-              </Box>
             </Box>
+          </Box>
 
 
 
-            
+
         </div>
       </div>
     </>
