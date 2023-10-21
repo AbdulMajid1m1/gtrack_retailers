@@ -414,7 +414,7 @@ const PriceCheckerPortrait = () => {
   return (
     <>
       <div className='flex justify-center items-center'>
-        <div className='sm:w-[65%] lg:w-[65%] w-full h-[100vh] overflow-y-auto bg-blue-300 bg-opacity-20 px-0 sm:px-2 sm:py-2'>
+        <div className='sm:w-full lg:w-full w-full h-[100vh] overflow-y-auto bg-blue-300 bg-opacity-20 px-0 sm:px-2 sm:py-2'>
           <div className='px-2'>
             <div className="flex items-center">
               <input
