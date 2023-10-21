@@ -27,7 +27,7 @@ const drawerWidth = 220
 
 const PriceCheckerPortrait = () => {
   const [gtin, setGTIN] = useState("");
-  
+
   const [data, setData] = useState(null);
   const [searchedData, setSearchedData] = useState({}); // State to store API data
   const [productPriceState, setProductPriceState] = useState(null); // State to store API data
@@ -75,6 +75,7 @@ const PriceCheckerPortrait = () => {
       stopScanner();
     };
   }, []);
+
   // Full Screen Code
   const [isFullscreen, setIsFullscreen] = useState(document.fullscreenElement != null);
 
@@ -436,6 +437,9 @@ const PriceCheckerPortrait = () => {
             <button onClick={startScanner}>
               Scan QR Code
             </button>
+            {isScannerActive && <button onClick={stopScanner}>
+              Close Scanner
+            </button>}
             <div ref={scannerRef} id="scanner" style={{ width: '300px', height: '300px' }}></div>
 
             <div className="flex flex-col md:flex-row border-2 border-dashed mt-3">
