@@ -8,6 +8,7 @@ import productRecallIcon from "../../Images/ProductRecall.jpeg";
 import recipeIcon from "../../Images/Recipe.jpeg";
 import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
+import amazon from "../../Images/amazon.png";
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import gs1logo from "../../Images/gs1.png";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
@@ -26,6 +27,8 @@ import {
 }
   from '../../utils/datatablesource';
 import DeleteIcon from "@mui/icons-material/Delete";
+import CardPopUp from '../../Components/CardPopUp/CardPopUp';
+import AmazonCardPopUp from '../../Components/AmazonCardPopUp/AmazonCardPopUp';
 
 const DigitalLinkInformation = ({ gtinData }) => {
   const [data, setData] = useState([]);
@@ -43,6 +46,22 @@ const DigitalLinkInformation = ({ gtinData }) => {
   const handleDelete = (id) => {
     console.log(id);
   }
+
+   // // this is the popup code
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // const [cardData, setCardData] = useState(null);
+  // const handleOpenAddProductsForItem = (index) => {
+  //   setCardData(cardData[index]);
+  //   handleOpen(); 
+  // };
 
   const [selectedOption, setSelectedOption] = useState("Safety Information");
   const { openSnackbar } = useContext(SnackbarContext);
@@ -770,6 +789,104 @@ const DigitalLinkInformation = ({ gtinData }) => {
               </div>
           </div>
         );
+
+        // case "GtinFacts":
+        // return (
+        //   <div className='h-auto w-full mt-3'>
+        //     <section className="py-1">
+        //       <div className="grid max-w-6xl  grid-cols-1 gap-5 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+        //         {/* {cardData?.map((item, index) => { */}
+
+        //           {/* return ( */}
+        //             <article className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
+        //               <div className="relative h-56 flex items-end overflow-hidden rounded-xl">
+        //                 <img 
+        //                   className='' 
+        //                   src={safetyInformationIcon} alt="image"
+        //                      onClick={() => handleOpenAddProductsForItem(index)}
+        //                      style={{
+        //                      objectFit: 'contain',
+        //                      height: '100%', margin: 'auto'
+        //                     }}
+
+        //                 />
+        //               </div>
+
+        //               <div className="mt-1 p-2 flex flex-col gap-1">
+        //                 <div className='flex justify-between items-center'>
+        //                     <p className="text-sm font-semibold text-slate-700">Arabic Name</p>
+        //                     <p className="mt-1 font-semibold text-sm text-slate-700">English Name</p>
+        //                 </div>
+        //                 <div className='flex justify-between'>
+        //                   <p className="mt-1 font-semibold text-sm text-slate-700">628100000113</p>
+        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Unit Testing</p>
+        //                 </div>
+        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Product Name</p>
+        //                 </div>
+        //                     <div className="flex gap-3 justify-end">
+        //                       <CardDetailsPopUp
+        //                         title={"Open DEtails"}
+        //                         handleClose={handleClose}
+        //                         handleOpen={handleOpen}
+        //                         open={open}
+        //                         cardData={cardData}
+        //                       />
+        //                     </div>
+        //                 </article>
+        //           </div>
+        //       </section>
+        //   </div>
+        // );
+
+        // case "amazon":
+        // return (
+        //   <div className='h-auto w-full mt-3'>
+        //     <section className="py-1">
+        //       <div className="grid max-w-6xl  grid-cols-1 gap-5 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+        //         {/* {cardData?.map((item, index) => { */}
+
+        //           {/* return ( */}
+        //             <article className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
+        //               <div className="relative h-56 flex items-end overflow-hidden rounded-xl">
+        //                 {/* <img 
+        //                   className='' 
+        //                   src={phpImagesBaseUrl + "/" + item?.front_image} alt="image"
+        //                      onClick={() => handleOpenAddProductsForItem(index)}
+        //                      style={{
+        //                      objectFit: 'contain',
+        //                       height: '100%', margin: 'auto'
+        //                     }}
+
+        //                 /> */}
+        //                 <img 
+        //                   className='' 
+        //                   src={electronicLeafletsIcon} alt="image"
+        //                     //  onClick={() => handleOpenAddProductsForItem(index)}
+        //                      style={{
+        //                      objectFit: 'contain',
+        //                       height: '100%', margin: 'auto'
+        //                     }}
+
+        //                 />
+        //               </div>
+
+        //               <div className="mt-1 p-2 flex flex-col gap-1">
+        //                 <div className='flex justify-between items-center'>
+        //                     <p className="text-sm font-semibold text-slate-700">AMAZON Arabic Name</p>
+        //                     <p className="mt-1 font-semibold text-sm text-slate-700">AMAZON English Name</p>
+        //                 </div>
+        //                 <div className='flex justify-between'>
+        //                   <p className="mt-1 font-semibold text-sm text-slate-700">628100000113</p>
+        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Unit Testing</p>
+        //                 </div>
+        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Product Name</p>
+        //                 </div>   
+        //               </article>
+
+        //           </div>
+        //       </section>
+        //   </div>
+        // );
       // Add more cases for other options
       default:
         return null;
@@ -855,7 +972,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               Product Contents
             </span>
             <span
-              className={`bg-[#E60023] py-2 flex justify-start text-base sm:text-sm rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
+              className={`bg-[#E60023] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "ProductLocationofOrigin"
                 ? "bg-yellow-500"
                 : ""
                 }`}
@@ -867,6 +984,28 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 alt=""
               />
               Product Location of Origin
+            </span>
+            <span
+              className={`bg-[#0072b1] py-[2px] flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "GtinFacts"
+                ? "bg-yellow-500"
+                : ""
+                }`}
+              onClick={() => handleOptionChange("GtinFacts")}
+            >
+              <img
+                src={electronicLeafletsIcon}
+                className="h-5 w-5 ml-1"
+                alt=""
+              />
+              {/* GTIN FACTS */}
+              <div className='w-full'>
+                <CardPopUp 
+                    handleClosePopUp={handleClose}
+                    handleOpenPopUp={handleOpen}
+                    openPopUp={open}
+                    title={"GTIN FACTS"}
+                    />
+                </div>
             </span>
           </div>
 
@@ -912,6 +1051,26 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 alt=""
               />
               Electronic Leaflets
+            </span>
+            <span
+              className={`bg-[#3b5998] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "amazon" ? "bg-yellow-500" : ""
+                }`}
+              onClick={() => handleOptionChange("amazon")}
+            >
+              <img
+                src={amazon}
+                className="h-5 w-5 ml-1"
+                alt=""
+              />
+              {/* AMAZON */}
+              <div className='w-full'>
+                <AmazonCardPopUp 
+                    handleClosePopUp={handleClose}
+                    handleOpenPopUp={handleOpen}
+                    openPopUp={open}
+                    title={"AMAZON"}
+                    />
+                </div>
             </span>
           </div>
         </div>
