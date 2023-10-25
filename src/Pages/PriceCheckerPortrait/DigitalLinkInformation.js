@@ -55,6 +55,10 @@ const DigitalLinkInformation = ({ gtinData }) => {
     setOpen(true);
   };
 
+  const handleClose =() => {
+    setOpen(false);
+  }
+
  
 
   // this is the Amazon popup code
@@ -810,43 +814,9 @@ const DigitalLinkInformation = ({ gtinData }) => {
 
 
   const handleProductsData = async () => {
-    handleOpen();
+    // handleOpen();
     console.log(gtinData?.productDescription);
-<<<<<<< HEAD
-    try {
-      // if (!isApiResponseLoaded) {
-        // const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=nutella`);
-        const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=${gtinData?.productDescription}`);
-        console.log(response.data);
-  
-        if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
-          setShowProductsData(response.data);
-          setApiResponse(response.data);
-          // setIsApiResponseLoaded(true); // Mark API response as loaded
-          // handleOpen();
-        // } 
-        // else {
-        //   Swal.fire({
-        //     icon: 'info',
-        //     title: 'No Data Found',
-        //     text: 'The API response is empty.',
-        //     timer: 2000,
-        //   });
-        // }
-      }
-    } catch (error) {
-      console.log(error);
-      // If there's an error, show a Swal error message
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        timer: 2000,
-      });
-    }
-=======
-
->>>>>>> ea9c3c88d26bd0f31ce09cb90731f1ae47616a9d
+    // handleClose();
   }
 
 
