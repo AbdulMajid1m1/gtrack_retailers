@@ -1092,7 +1092,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
               className="h-5 w-5 ml-1"
               alt=""
             />
-            {/* AMAZON */}
+            {/* AMAZON  product popup*/}
             <div className='w-full'>
               <AmazonCardPopUp
                 amazonLoder={amazonLoder}
