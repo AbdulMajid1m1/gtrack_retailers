@@ -884,7 +884,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
       })
     }
   } 
-
+ 
 
  
  
