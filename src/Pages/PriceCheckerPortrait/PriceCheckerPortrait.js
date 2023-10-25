@@ -159,10 +159,11 @@ const PriceCheckerPortrait = () => {
         setData(response?.data);
         sessionStorage.setItem("gtinData", JSON.stringify(response?.data));
         // sessionStorage.setItem("EventgtinArr", JSON.stringify(response?.data?.gtinArr));
+        console.log(gtin)
         setGTIN(gtin)
 
 
-        // Product Price ki api s
+        // Product Price ki apis
         newRequest
           .get(`/getProductContentByGtin/${result.gtin}`)
           .then((secondResponse) => {
@@ -518,25 +519,25 @@ const PriceCheckerPortrait = () => {
       <div className='flex justify-center items-center'>
         <div className='sm:w-full lg:w-full w-full h-[100vh] overflow-y-auto bg-blue-300 bg-opacity-20 px-0 sm:px-2 sm:py-2'>
           <div className='h-10 w-full bg-primary flex justify-start items-center px-2'>
-              <button onClick={() => navigate(-1)} className='font-medium rounded-sm p-2 py-1'>
-                <span>
-                  <img src={backarrow}
-                    className='h-auto w-8 object-contain'
-                    alt=''
-                    style={{ filter: 'brightness(0) invert(1)' }}
-                  />
-                </span>
-              </button>
-
-              <button onClick={toggleFullscreen} className='font-medium h-auto w-14 rounded-sm p-2 py-1'>
-                <FullscreenIcon
-                  style={{ height: 'auto', width: '40px', filter: 'brightness(0) invert(1)' }}
-                  className=''
+            <button onClick={() => navigate(-1)} className='font-medium rounded-sm p-2 py-1'>
+              <span>
+                <img src={backarrow}
+                  className='h-auto w-8 object-contain'
                   alt=''
-
+                  style={{ filter: 'brightness(0) invert(1)' }}
                 />
-              </button>
-            </div>
+              </span>
+            </button>
+
+            <button onClick={toggleFullscreen} className='font-medium h-auto w-14 rounded-sm p-2 py-1'>
+              <FullscreenIcon
+                style={{ height: 'auto', width: '40px', filter: 'brightness(0) invert(1)' }}
+                className=''
+                alt=''
+
+              />
+            </button>
+          </div>
           <div className='px-2'>
             <div className="flex items-center">
               <input
