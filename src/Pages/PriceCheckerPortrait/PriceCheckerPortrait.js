@@ -162,7 +162,7 @@ const PriceCheckerPortrait = () => {
         setGTIN(gtin)
 
 
-        // Product Price ki api 
+        // Product Price ki api s
         newRequest
           .get(`/getProductContentByGtin/${result.gtin}`)
           .then((secondResponse) => {
