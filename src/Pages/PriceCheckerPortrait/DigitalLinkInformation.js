@@ -883,7 +883,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
         timer: 2000,
       })
     }
-  }
+  } 
 
 
 
