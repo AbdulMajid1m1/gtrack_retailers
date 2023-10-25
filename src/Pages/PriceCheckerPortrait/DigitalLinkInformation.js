@@ -815,24 +815,25 @@ const DigitalLinkInformation = ({ gtinData }) => {
   const handleProductsData = async () => {
     console.log(gtinData?.productDescription);
     try {
-      if (!isApiResponseLoaded) {
+      // if (!isApiResponseLoaded) {
+        // const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=nutella`);
         const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=${gtinData?.productDescription}`);
         console.log(response.data);
   
         if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
           setShowProductsData(response.data);
           setApiResponse(response.data);
-          setIsApiResponseLoaded(true); // Mark API response as loaded
-          handleOpen();
-        } 
-        else {
-          Swal.fire({
-            icon: 'info',
-            title: 'No Data Found',
-            text: 'The API response is empty.',
-            timer: 2000,
-          });
-        }
+          // setIsApiResponseLoaded(true); // Mark API response as loaded
+          // handleOpen();
+        // } 
+        // else {
+        //   Swal.fire({
+        //     icon: 'info',
+        //     title: 'No Data Found',
+        //     text: 'The API response is empty.',
+        //     timer: 2000,
+        //   });
+        // }
       }
     } catch (error) {
       console.log(error);
