@@ -13,21 +13,6 @@ import { RiseLoader } from 'react-spinners';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import gs1logo from "../../Images/gs1.png";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
-import DataTable from '../../Components/Datatable/Datatable';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import {
-  ElectronicLeafletsColumn,
-  PackagingCompositionColumn,
-  ProductContentColumn,
-  ProductLocationofOriginColumn,
-  ProductRecallColumn,
-  PromotionalOffersColumns,
-  RecipeColumn,
-  SafetyInformationColumn
-}
-  from '../../utils/datatablesource';
-import DeleteIcon from "@mui/icons-material/Delete";
 import CardPopUp from '../../Components/CardPopUp/CardPopUp';
 import AmazonCardPopUp from '../../Components/AmazonCardPopUp/AmazonCardPopUp';
 import Swal from 'sweetalert2';
@@ -43,11 +28,16 @@ const DigitalLinkInformation = ({ gtinData }) => {
   const [packagingComposition, setPackagingComposition] = useState([]);
   const [electronicLeaflets, setElectronicLeaflets] = useState([]);
   const { currentUser } = useContext(CurrentUserContext);
+  const [openFoodLoading, setOpenFoodLoading] = useState(false);
+  const [amazonLoder, setAmazonLoder] = useState(false);
 
+  const [apiResponse, setApiResponse] = useState([]);
+  const [amazonApiResponse, setAmazonApiResponse] = useState([]);
 
   const handleDelete = (id) => {
     console.log(id);
   }
+
 
   // this is the popup code
   const [open, setOpen] = useState(false);
@@ -55,7 +45,99 @@ const DigitalLinkInformation = ({ gtinData }) => {
     setOpen(true);
   };
 
- 
+  const handleClose = () => {
+    // close the popup
+    setOpen(false);
+  }
+
+
+  const handleAmazonProductData = async () => {
+    console.log(gtinData?.productDescription);
+    if (gtinData?.productDescription === undefined) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please select a product first!',
+        timer: 2000,
+      })
+      setOpenFoodLoading(false);
+      return;
+    }
+    setAmazonLoder(true);
+    // open the popup
+    handleAmazonOpenPopUp();
+    try {
+
+      const response = await newRequest.get(`/getAmazonProductData?q=${gtinData?.productDescription}`);
+      console.log(response.data);
+      if (response.data.length === 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No data found!',
+          timer: 2000,
+        })
+      }
+      setAmazonApiResponse(response.data || []); // Set API response
+
+    }
+    catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error?.response?.data?.message ?? 'Something went wrong!',
+        timer: 2000,
+      })
+    } finally {
+      setAmazonLoder(false); // Step 3: Hide Loader
+    }
+  }
+  const hanldleOpenFoodPopUp = async () => {
+
+    console.log(gtinData?.productDescription);
+    if (gtinData?.productDescription === undefined) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please select a product first!',
+        timer: 2000,
+      })
+      setOpenFoodLoading(false);
+      return;
+    }
+    handleOpen();
+    setOpenFoodLoading(true);
+    try {
+      const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=${gtinData?.productDescription}`);
+      console.log(response.data);
+      if (response.data.length === 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No data found!',
+          timer: 2000,
+        })
+      }
+
+
+      setApiResponse(response.data);
+    } catch (error) {
+      console.log(error);
+      // If there's an error, show a Swal error message
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error?.response?.data?.message ?? 'Something went wrong!',
+        timer: 2000,
+
+      });
+    }
+    finally {
+      setOpenFoodLoading(false); // Step 3: Hide Loader
+    }
+  }
+
 
   // this is the Amazon popup code
   const [openAmazonPopUp, setAmazonPopUp] = useState(false);
@@ -208,9 +290,16 @@ const DigitalLinkInformation = ({ gtinData }) => {
           });
         break;
 
-      // Add more cases for other options
-      default:
+      case "Amazon":
         break;
+
+      case "GtinFacts":
+        break;
+
+      default:
+
+        break;
+
     }
   };
 
@@ -801,58 +890,11 @@ const DigitalLinkInformation = ({ gtinData }) => {
     }
   };
 
-
-
-
-  const [showProductsData, setShowProductsData] = useState([]);
-  const [isApiResponseLoaded, setIsApiResponseLoaded] = useState(false); // New state
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const handleProductsData = async () => {
-    handleOpen();
-    console.log(gtinData?.productDescription);
-
-  }
-
-
-
   // Amazon Tab Api
-  const [amazonApiResponse, setAmazonApiResponse] = useState(null);
-  const [isAmazonApiResponseLoaded, setIsAmazonApiResponseLoaded] = useState(false); // New state
 
-  const handleAmazonProductData = async () => {
-    console.log(gtinData?.productDescription);
-    try {
-      if (!isAmazonApiResponseLoaded) {
-        const response = await newRequest.get(`/getAmazonProductData?q=${gtinData?.productDescription}`);
-        console.log(response.data);
 
-        if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
-          setAmazonApiResponse(response.data);
-          setIsAmazonApiResponseLoaded(true); // Mark API response as loaded
-          handleOpen();
-        }
-        else {
-          Swal.fire({
-            icon: 'info',
-            title: 'No Data Found',
-            text: 'The API response is empty.',
-            // timer: 2000,
-          });
-        }
-      }
-    }
-    catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        timer: 2000,
-      })
-    }
-  }
 
 
 
@@ -972,7 +1014,6 @@ const DigitalLinkInformation = ({ gtinData }) => {
               }`}
             onClick={() => {
               handleOptionChange("GtinFacts")
-              handleProductsData()
             }}
           >
             <img
@@ -983,13 +1024,14 @@ const DigitalLinkInformation = ({ gtinData }) => {
             {/* GTIN FACTS */}
             <div className='w-full'>
               <CardPopUp
-                productDescription={gtinData?.productDescription}
+                apiResponse={apiResponse}
                 handleClosePopUp={handleClose}
-                handleOpenPopUp={handleOpen}
+                handleOpenPopUp={hanldleOpenFoodPopUp}
                 openPopUp={open}
+                openFoodLoading={openFoodLoading}
 
                 title={"GTIN FACTS"}
-              
+
               />
             </div>
           </span>
@@ -1043,7 +1085,6 @@ const DigitalLinkInformation = ({ gtinData }) => {
               }`}
             onClick={() => {
               handleOptionChange("amazon")
-              handleAmazonProductData()
             }}
           >
             <img
@@ -1054,11 +1095,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
             {/* AMAZON */}
             <div className='w-full'>
               <AmazonCardPopUp
-                handleOpenAmazonPopUp={handleAmazonOpenPopUp}
+                amazonLoder={amazonLoder}
+                amazonApiResponse={amazonApiResponse}
+                handleOpenAmazonPopUp={handleAmazonProductData}
                 handleCloseAmazonPopUp={handleCloseAmazonPopUp}
                 openAmazonPopUp={openAmazonPopUp}
                 title={"AMAZON"}
-                AmazoncardData={amazonApiResponse}
               />
             </div>
           </span>
