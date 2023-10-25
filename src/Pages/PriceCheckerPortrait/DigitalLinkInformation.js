@@ -886,7 +886,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
   } 
 
 
-
+ 
  
   return (
     <div
