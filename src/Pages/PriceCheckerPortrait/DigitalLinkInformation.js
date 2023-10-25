@@ -9,6 +9,7 @@ import recipeIcon from "../../Images/Recipe.jpeg";
 import packagingCompositionIcon from "../../Images/packaging.jpeg";
 import electronicLeafletsIcon from "../../Images/electronicLeafLets.jpeg";
 import amazon from "../../Images/amazon.png";
+import { RiseLoader } from 'react-spinners';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import gs1logo from "../../Images/gs1.png";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
@@ -790,109 +791,63 @@ const DigitalLinkInformation = ({ gtinData }) => {
           </div>
         );
 
-        // case "GtinFacts":
-        // return (
-        //   <div className='h-auto w-full mt-3'>
-        //     <section className="py-1">
-        //       <div className="grid max-w-6xl  grid-cols-1 gap-5 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        //         {/* {cardData?.map((item, index) => { */}
-
-        //           {/* return ( */}
-        //             <article className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
-        //               <div className="relative h-56 flex items-end overflow-hidden rounded-xl">
-        //                 <img 
-        //                   className='' 
-        //                   src={safetyInformationIcon} alt="image"
-        //                      onClick={() => handleOpenAddProductsForItem(index)}
-        //                      style={{
-        //                      objectFit: 'contain',
-        //                      height: '100%', margin: 'auto'
-        //                     }}
-
-        //                 />
-        //               </div>
-
-        //               <div className="mt-1 p-2 flex flex-col gap-1">
-        //                 <div className='flex justify-between items-center'>
-        //                     <p className="text-sm font-semibold text-slate-700">Arabic Name</p>
-        //                     <p className="mt-1 font-semibold text-sm text-slate-700">English Name</p>
-        //                 </div>
-        //                 <div className='flex justify-between'>
-        //                   <p className="mt-1 font-semibold text-sm text-slate-700">628100000113</p>
-        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Unit Testing</p>
-        //                 </div>
-        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Product Name</p>
-        //                 </div>
-        //                     <div className="flex gap-3 justify-end">
-        //                       <CardDetailsPopUp
-        //                         title={"Open DEtails"}
-        //                         handleClose={handleClose}
-        //                         handleOpen={handleOpen}
-        //                         open={open}
-        //                         cardData={cardData}
-        //                       />
-        //                     </div>
-        //                 </article>
-        //           </div>
-        //       </section>
-        //   </div>
-        // );
-
-        // case "amazon":
-        // return (
-        //   <div className='h-auto w-full mt-3'>
-        //     <section className="py-1">
-        //       <div className="grid max-w-6xl  grid-cols-1 gap-5 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        //         {/* {cardData?.map((item, index) => { */}
-
-        //           {/* return ( */}
-        //             <article className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
-        //               <div className="relative h-56 flex items-end overflow-hidden rounded-xl">
-        //                 {/* <img 
-        //                   className='' 
-        //                   src={phpImagesBaseUrl + "/" + item?.front_image} alt="image"
-        //                      onClick={() => handleOpenAddProductsForItem(index)}
-        //                      style={{
-        //                      objectFit: 'contain',
-        //                       height: '100%', margin: 'auto'
-        //                     }}
-
-        //                 /> */}
-        //                 <img 
-        //                   className='' 
-        //                   src={electronicLeafletsIcon} alt="image"
-        //                     //  onClick={() => handleOpenAddProductsForItem(index)}
-        //                      style={{
-        //                      objectFit: 'contain',
-        //                       height: '100%', margin: 'auto'
-        //                     }}
-
-        //                 />
-        //               </div>
-
-        //               <div className="mt-1 p-2 flex flex-col gap-1">
-        //                 <div className='flex justify-between items-center'>
-        //                     <p className="text-sm font-semibold text-slate-700">AMAZON Arabic Name</p>
-        //                     <p className="mt-1 font-semibold text-sm text-slate-700">AMAZON English Name</p>
-        //                 </div>
-        //                 <div className='flex justify-between'>
-        //                   <p className="mt-1 font-semibold text-sm text-slate-700">628100000113</p>
-        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Unit Testing</p>
-        //                 </div>
-        //                   <p className="mt-1 font-semibold text-sm text-slate-700">Product Name</p>
-        //                 </div>   
-        //               </article>
-
-        //           </div>
-        //       </section>
-        //   </div>
-        // );
+      
       // Add more cases for other options
       default:
         return null;
     }
   };
 
+  
+  // const [showProductsData, setShowProductsData] = useState([]);
+  // const [apiResponse, setApiResponse] = useState(null);
+
+  // const handleProductsData = async () => {
+  //   try {
+  //     const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=nutella`);
+  //     console.log(response.data);
+  //     setShowProductsData(response.data);
+  
+  //     if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
+  //         setApiResponse(response.data); 
+  //       // handleOpen();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+
+  const [showProductsData, setShowProductsData] = useState([]);
+  const [apiResponse, setApiResponse] = useState(null);
+  const [isApiResponseLoaded, setIsApiResponseLoaded] = useState(false); // New state
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const handleProductsData = async () => {
+    // setIsLoading(true);
+    try {
+      if (!isApiResponseLoaded) {
+        const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=nutella`);
+        console.log(response.data);
+        setShowProductsData(response.data);
+        // setIsLoading(false);
+    
+        if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
+          setApiResponse(response.data);
+          setIsApiResponseLoaded(true); // Mark API response as loaded
+          handleOpen();
+        }
+      }
+    } 
+    catch (error) {
+      console.log(error);
+      // setIsLoading(false);
+    
+    }
+  }
+
+  
 
 
 
@@ -906,6 +861,25 @@ const DigitalLinkInformation = ({ gtinData }) => {
     >
       {/* new design */}
       <div className="popup-header">
+        {isLoading &&
+
+          <div className='loading-spinner-background'
+              style={{
+                  zIndex: 9999, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'fixed'
+
+
+              }}
+          >
+              <RiseLoader
+                  size={18}
+                  color={"#6439ff"}
+                  // height={4}
+                  loading={isLoading}
+              />
+          </div>
+          }
+
         <div className="w-full font-body p-6 shadow-xl rounded-md text-black bg-[#D4EDDA] text-xl mb:2 md:mb-5">
             <div className='flex justify-start gap-2 text-xs sm:text-sm'>
                 <div>
@@ -990,7 +964,10 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 ? "bg-yellow-500"
                 : ""
                 }`}
-              onClick={() => handleOptionChange("GtinFacts")}
+              onClick={() => {
+                 handleOptionChange("GtinFacts")
+                 handleProductsData()
+                }}
             >
               <img
                 src={electronicLeafletsIcon}
@@ -999,11 +976,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
               />
               {/* GTIN FACTS */}
               <div className='w-full'>
-                <CardPopUp 
-                    handleClosePopUp={handleClose}
-                    handleOpenPopUp={handleOpen}
-                    openPopUp={open}
-                    title={"GTIN FACTS"}
+                    <CardPopUp
+                      handleClosePopUp={handleClose}
+                      handleOpenPopUp={handleOpen}
+                      openPopUp={open}
+                      title={"GTIN FACTS"}
+                      apiResponse={apiResponse} 
                     />
                 </div>
             </span>
@@ -1062,15 +1040,15 @@ const DigitalLinkInformation = ({ gtinData }) => {
                 className="h-5 w-5 ml-1"
                 alt=""
               />
-              {/* AMAZON */}
-              <div className='w-full'>
+              AMAZON
+              {/* <div className='w-full'>
                 <AmazonCardPopUp 
                     handleClosePopUp={handleClose}
                     handleOpenPopUp={handleOpen}
                     openPopUp={open}
                     title={"AMAZON"}
                     />
-                </div>
+                </div> */}
             </span>
           </div>
         </div>

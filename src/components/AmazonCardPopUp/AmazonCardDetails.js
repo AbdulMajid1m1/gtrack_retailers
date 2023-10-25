@@ -20,6 +20,10 @@ const style = {
   p: 4,
 };
 
+const modalContainerStyle = {
+    backgroundColor: 'transparent', // Set the overlay background to transparent
+  };
+
 const AmazonCardDetails = ({ title, handleOpen, handleClose, open, cardData }) => {
   return (
     <div>
@@ -33,6 +37,7 @@ const AmazonCardDetails = ({ title, handleOpen, handleClose, open, cardData }) =
         open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        BackdropProps={{ style: modalContainerStyle }} 
       >
         <Box
           sx={{
@@ -57,7 +62,7 @@ const AmazonCardDetails = ({ title, handleOpen, handleClose, open, cardData }) =
             <ClearIcon />
           </IconButton>
 
-          <div className="p-3 h-full" style={{ maxHeight: '100%', overflowY: 'auto' }}>
+          <div className="p-3 h-full shadow" style={{ maxHeight: '100%', overflowY: 'auto' }}>
           <section class="overflow-hidden bg-white font-poppins dark:bg-gray-800">
                 <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
                     <div class="flex flex-wrap -mx-4">
