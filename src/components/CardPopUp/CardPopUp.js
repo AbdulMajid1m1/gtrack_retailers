@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
 import CardDetails from './CardDetails';
+import "./CardPopUp.css"
 
 const style = {
   position: 'absolute',

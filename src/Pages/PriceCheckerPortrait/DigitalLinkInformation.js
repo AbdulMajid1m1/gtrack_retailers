@@ -30,6 +30,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import CardPopUp from '../../Components/CardPopUp/CardPopUp';
 import AmazonCardPopUp from '../../Components/AmazonCardPopUp/AmazonCardPopUp';
+import Swal from 'sweetalert2';
 
 const DigitalLinkInformation = ({ gtinData }) => {
   const [data, setData] = useState([]);
@@ -48,7 +49,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
     console.log(id);
   }
 
-   // // this is the popup code
+  // this is the popup code
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -58,11 +59,15 @@ const DigitalLinkInformation = ({ gtinData }) => {
     setOpen(false);
   };
 
-  // const [cardData, setCardData] = useState(null);
-  // const handleOpenAddProductsForItem = (index) => {
-  //   setCardData(cardData[index]);
-  //   handleOpen(); 
-  // };
+  // this is the Amazon popup code
+  const [openAmazonPopUp, setAmazonPopUp] = useState(false);
+  const handleAmazonOpenPopUp = () => {
+    setAmazonPopUp(true);
+  };
+
+  const handleCloseAmazonPopUp = () => {
+    setAmazonPopUp(false);
+  };
 
   const [selectedOption, setSelectedOption] = useState("Safety Information");
   const { openSnackbar } = useContext(SnackbarContext);
@@ -799,23 +804,6 @@ const DigitalLinkInformation = ({ gtinData }) => {
   };
 
   
-  // const [showProductsData, setShowProductsData] = useState([]);
-  // const [apiResponse, setApiResponse] = useState(null);
-
-  // const handleProductsData = async () => {
-  //   try {
-  //     const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=nutella`);
-  //     console.log(response.data);
-  //     setShowProductsData(response.data);
-  
-  //     if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
-  //         setApiResponse(response.data); 
-  //       // handleOpen();
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
 
   const [showProductsData, setShowProductsData] = useState([]);
@@ -825,29 +813,78 @@ const DigitalLinkInformation = ({ gtinData }) => {
 
 
   const handleProductsData = async () => {
-    // setIsLoading(true);
+    console.log(gtinData?.productDescription);
     try {
       if (!isApiResponseLoaded) {
-        const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=nutella`);
+        const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=${gtinData?.productDescription}`);
         console.log(response.data);
-        setShowProductsData(response.data);
-        // setIsLoading(false);
-    
+  
         if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
+          setShowProductsData(response.data);
           setApiResponse(response.data);
           setIsApiResponseLoaded(true); // Mark API response as loaded
           handleOpen();
+        } 
+        else {
+          Swal.fire({
+            icon: 'info',
+            title: 'No Data Found',
+            text: 'The API response is empty.',
+            timer: 2000,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      // If there's an error, show a Swal error message
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        timer: 2000,
+      });
+    }
+  }
+
+
+
+  // Amazon Tab Api
+  const [amazonApiResponse, setAmazonApiResponse] = useState(null);
+  const [isAmazonApiResponseLoaded, setIsAmazonApiResponseLoaded] = useState(false); // New state
+  
+  const handleAmazonProductData = async () => {
+    console.log(gtinData?.productDescription);
+    try {
+      if (!isAmazonApiResponseLoaded) {
+        const response = await newRequest.get(`/getAmazonProductData?q=${gtinData?.productDescription}`);
+        console.log(response.data);
+       
+        if (response.data && (Array.isArray(response.data) ? response.data.length > 0 : Object.keys(response.data).length > 0)) {
+            setAmazonApiResponse(response.data);
+            setIsAmazonApiResponseLoaded(true); // Mark API response as loaded
+            handleOpen();
+        } 
+        else {
+          Swal.fire({
+            icon: 'info',
+            title: 'No Data Found',
+            text: 'The API response is empty.',
+            // timer: 2000,
+          });
         }
       }
     } 
     catch (error) {
       console.log(error);
-      // setIsLoading(false);
-    
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        timer: 2000,
+      })
     }
   }
 
-  
 
 
 
@@ -1033,22 +1070,26 @@ const DigitalLinkInformation = ({ gtinData }) => {
             <span
               className={`bg-[#3b5998] py-2 flex justify-start px-1 rounded-md text-white items-center gap-2 cursor-pointer ${selectedOption === "amazon" ? "bg-yellow-500" : ""
                 }`}
-              onClick={() => handleOptionChange("amazon")}
+              onClick={() => { 
+                handleOptionChange("amazon")
+                handleAmazonProductData()
+              }}
             >
               <img
                 src={amazon}
                 className="h-5 w-5 ml-1"
                 alt=""
               />
-              AMAZON
-              {/* <div className='w-full'>
+              {/* AMAZON */}
+              <div className='w-full'>
                 <AmazonCardPopUp 
-                    handleClosePopUp={handleClose}
-                    handleOpenPopUp={handleOpen}
-                    openPopUp={open}
+                    handleOpenAmazonPopUp={handleAmazonOpenPopUp}
+                    handleCloseAmazonPopUp={handleCloseAmazonPopUp}
+                    openAmazonPopUp={openAmazonPopUp}
                     title={"AMAZON"}
+                    AmazoncardData={amazonApiResponse}
                     />
-                </div> */}
+                </div>
             </span>
           </div>
         </div>
