@@ -7,6 +7,8 @@ import CardDetails from './CardDetails';
 import "./CardPopUp.css"
 import newRequest from '../../utils/userRequest';
 import Swal from 'sweetalert2';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const style = {
   position: 'absolute',
@@ -23,11 +25,9 @@ const style = {
 };
 
 
-const CardPopUp = ({ title, handleOpenPopUp, handleClosePopUp, openPopUp, productDescription }) => {
+const CardPopUp = ({ title, handleOpenPopUp, handleClosePopUp, openPopUp, openFoodLoading,apiResponse }) => {
 
 
-
-  const [apiResponse, setApiResponse] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedCardData, setSelectedCardData] = useState(null); // Track selected card data
 
@@ -41,32 +41,7 @@ const CardPopUp = ({ title, handleOpenPopUp, handleClosePopUp, openPopUp, produc
   };
 
 
-  const getProductDetails = async () => {
-    try {
-      const response = await newRequest.get(`/getOpenFoodProductbyDesc?keyword=${productDescription}`);
-      console.log(response.data);
-      setApiResponse(response.data);
 
-
-
-
-
-    } catch (error) {
-      console.log(error);
-      // If there's an error, show a Swal error message
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        timer: 2000,
-      });
-    }
-  }
-
-  useEffect(() => {
-    getProductDetails();
-  }
-    , [])
 
   return (
     <div>
@@ -102,55 +77,71 @@ const CardPopUp = ({ title, handleOpenPopUp, handleClosePopUp, openPopUp, produc
           >
             <ClearIcon />
           </IconButton>
+          {openFoodLoading ? ( // Step 4: Conditionally Render Loader
 
-          <div className="p-3 h-full shadow" style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
-            <section className="py-1">
-              <div className="grid max-w-6xl grid-cols-1 gap-5 p-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4">
-                {apiResponse !== null && apiResponse.map((item, index) => (
-                  <article key={index} className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
-                    <div
-                      // onClick={() => handleOpen()} 
-                      onClick={() => {
-                        setSelectedCardData(item); // Set the selected card data
-                        handleOpen(); // Open the CardDetails modal
-                      }}
-                      className="relative h-56 flex items-end overflow-hidden rounded-xl">
-                      <img
-                        className=""
-                        src={item.imageURL} // Use the appropriate property from the API response
-                        // alt={item.commonName} // Add alt text for accessibility
-                        style={{
-                          objectFit: 'contain',
-                          height: '100%',
-                          margin: 'auto',
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '100%', // Ensure the container takes the full height
+              }}
+            >
+              <CircularProgress
+
+              />
+            </div>
+          ) : (
+            <div className="p-3 h-full shadow" style={{ maxHeight: '100%', overflowY: 'auto' }}>
+              <h1 className='font-normal bg-primary text-white px-2 py-1'>Detailed Information</h1>
+              <section className="py-1">
+                <div className="grid max-w-6xl grid-cols-1 gap-5 p-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4">
+                  {apiResponse !== null && apiResponse.map((item, index) => (
+                    <article key={index} className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+                      <div
+                        // onClick={() => handleOpen()} 
+                        onClick={() => {
+                          setSelectedCardData(item); // Set the selected card data
+                          handleOpen(); // Open the CardDetails modal
                         }}
-                      />
-                    </div>
-
-                    <div className="mt-1 p-2 flex flex-col gap-1">
-                      <div className='flex justify-between items-center'>
-                        <p className="text-sm font-semibold text-slate-700">
-                          {`${item.commonName} - ${item.brands} - ${item.quantity}`}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex gap-3 justify-end">
-                      {selectedCardData && (
-                        <CardDetails
-                          title={selectedCardData.commonName} // Pass the card title or any other relevant data
-                          handleOpen={handleOpen}
-                          handleClose={handleClose}
-                          open={open}
-                          cardData={selectedCardData} // Pass the selected card data
+                        className="relative h-56 flex items-end overflow-hidden rounded-xl">
+                        <img
+                          className=""
+                          src={item.imageURL} // Use the appropriate property from the API response
+                          // alt={item.commonName} // Add alt text for accessibility
+                          style={{
+                            objectFit: 'contain',
+                            height: '100%',
+                            margin: 'auto',
+                          }}
                         />
-                      )}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </div>
+                      </div>
+
+                      <div className="mt-1 p-2 flex flex-col gap-1">
+                        <div className='flex justify-between items-center'>
+                          <p className="text-sm font-semibold text-slate-700">
+                            {`${item.commonName} - ${item.brands} - ${item.quantity}`}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex gap-3 justify-end">
+                        {selectedCardData && (
+                          <CardDetails
+                            title={selectedCardData.commonName} // Pass the card title or any other relevant data
+                            handleOpen={handleOpen}
+                            handleClose={handleClose}
+                            open={open}
+                            cardData={selectedCardData} // Pass the selected card data
+                          />
+                        )}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            </div>
+          )}
         </Box>
       </Modal>
     </div>
