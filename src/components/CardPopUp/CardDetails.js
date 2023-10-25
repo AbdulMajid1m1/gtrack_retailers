@@ -31,7 +31,7 @@ const CardDetails = ({ title, handleOpen, handleClose, open, cardData }) => {
       </Button>
       <Modal
         open={open}
-        aria-labelledby="modal-modal-title"
+        aria-labelledby="modal-modal-title" 
         aria-describedby="modal-modal-description"
       >
         <Box
