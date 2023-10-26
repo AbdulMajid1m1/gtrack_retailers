@@ -194,7 +194,7 @@ const PriceCheckerPortrait = () => {
             //   timer: 2000,
             //   showConfirmButton: false,
 
-            // })
+            // }) 
           });
 
 
