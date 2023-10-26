@@ -49,7 +49,12 @@ const DigitalLinkInformation = ({ gtinData }) => {
     // close the popup
     setOpen(false);
   }
-
+  const handleAmazonOpenPopUps = (searchTerm) => {
+    const encodedSearchTerm = encodeURIComponent(searchTerm);
+    const amazonUrl = `https://www.amazon.com/s?k=${encodedSearchTerm}`;
+    const windowFeatures = 'width=600,height=400,status=yes,toolbar=no,menubar=no,location=no';
+    window.open(amazonUrl, '_blank', windowFeatures);
+  }
 
   const handleAmazonProductData = async () => {
     console.log(gtinData?.productDescription);
@@ -65,7 +70,7 @@ const DigitalLinkInformation = ({ gtinData }) => {
     }
     setAmazonLoder(true);
     // open the popup
-    handleAmazonOpenPopUp();
+    handleAmazonOpenPopUps();
     try {
 
       const response = await newRequest.get(`/getAmazonProductData?q=${gtinData?.productDescription}`);
