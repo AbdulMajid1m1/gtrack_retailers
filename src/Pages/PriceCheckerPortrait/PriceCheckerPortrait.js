@@ -183,7 +183,8 @@ const PriceCheckerPortrait = () => {
           })
           .catch((secondError) => {
             console.log(secondError);
-
+            
+            setProductPriceState(null);
             // setProductPriceState([]);
             // I commit this message
             // Swal.fire({
