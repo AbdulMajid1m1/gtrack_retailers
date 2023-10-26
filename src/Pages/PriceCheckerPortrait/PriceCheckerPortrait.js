@@ -160,7 +160,7 @@ const PriceCheckerPortrait = () => {
         sessionStorage.setItem("gtinData", JSON.stringify(response?.data));
         // sessionStorage.setItem("EventgtinArr", JSON.stringify(response?.data?.gtinArr));
         console.log(gtin)
-        setGTIN(gtin)
+        // setGTIN(gtin)
 
 
         // Product Price ki apis
@@ -180,10 +180,12 @@ const PriceCheckerPortrait = () => {
                 setProductPriceState(null);
               }
             }
+            // empty search box after search
+            setGTIN("");
           })
           .catch((secondError) => {
             console.log(secondError);
-            
+
             setProductPriceState(null);
             // setProductPriceState([]);
             // I commit this message
@@ -201,6 +203,7 @@ const PriceCheckerPortrait = () => {
 
 
         fetchLocations();
+        setGTIN("");
       })
       .catch((error) => {
         console.log(error);
