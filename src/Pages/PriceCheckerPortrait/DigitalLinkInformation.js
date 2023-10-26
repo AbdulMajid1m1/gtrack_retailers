@@ -57,46 +57,46 @@ const DigitalLinkInformation = ({ gtinData }) => {
   }
 
   const handleAmazonProductData = async () => {
-    console.log(gtinData?.productDescription);
-    if (gtinData?.productDescription === undefined) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please select a product first!',
-        timer: 2000,
-      })
-      setOpenFoodLoading(false);
-      return;
-    }
-    setAmazonLoder(true);
+    //   console.log(gtinData?.productDescription);
+    //   if (gtinData?.productDescription === undefined) {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Oops...',
+    //       text: 'Please select a product first!',
+    //       timer: 2000,
+    //     })
+    //     setOpenFoodLoading(false);
+    //     return;
+    //   }
+    //   setAmazonLoder(true);
     // open the popup
-    handleAmazonOpenPopUps();
-    try {
+    handleAmazonOpenPopUps(gtinData?.productDescription);
+    // try {
 
-      const response = await newRequest.get(`/getAmazonProductData?q=${gtinData?.productDescription}`);
-      console.log(response.data);
-      if (response.data.length === 0) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'No data found!',
-          timer: 2000,
-        })
-      }
-      setAmazonApiResponse(response.data || []); // Set API response
+    //   const response = await newRequest.get(`/getAmazonProductData?q=${gtinData?.productDescription}`);
+    //   console.log(response.data);
+    //   if (response.data.length === 0) {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Oops...',
+    //       text: 'No data found!',
+    //       timer: 2000,
+    //     })
+    //   }
+    //   setAmazonApiResponse(response.data || []); // Set API response
 
-    }
-    catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error?.response?.data?.message ?? 'Something went wrong!',
-        timer: 2000,
-      })
-    } finally {
-      setAmazonLoder(false); // Step 3: Hide Loader
-    }
+    // }
+    // catch (error) {
+    //   console.log(error);
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: error?.response?.data?.message ?? 'Something went wrong!',
+    //     timer: 2000,
+    //   })
+    // } finally {
+    //   setAmazonLoder(false); // Step 3: Hide Loader
+    // }
   }
   const hanldleOpenFoodPopUp = async () => {
 
