@@ -185,15 +185,16 @@ const PriceCheckerPortrait = () => {
             console.log(secondError);
 
             // setProductPriceState([]);
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: secondError?.response?.data?.message ?? 'Something went wrong',
+            // I commit this message
+            // Swal.fire({
+            //   icon: 'error',
+            //   title: 'Oops...',
+            //   text: secondError?.response?.data?.message ?? 'Something went wrong',
 
-              timer: 2000,
-              showConfirmButton: false,
+            //   timer: 2000,
+            //   showConfirmButton: false,
 
-            })
+            // })
           });
 
 
