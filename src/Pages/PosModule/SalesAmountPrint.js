@@ -1,8 +1,9 @@
 import { QrCode } from '@mui/icons-material';
 import React, { useContext, useEffect, useState } from 'react';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
+import newRequest from '../../utils/userRequest';
 
-const SalesAmountPrint = ({ openModel }) => {
+const SalesAmountPrint = ({ openModel, serialNo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalAmount, setTotalAmount] = useState('');
   const [cashAmount, setCashAmount] = useState('');
@@ -10,6 +11,7 @@ const SalesAmountPrint = ({ openModel }) => {
   const [tenderAmount, setTenderAmount] = useState('');
   const [change, setChange] = useState('');
   const { openSnackbar } = useContext(SnackbarContext);
+  console.log(serialNo);
  
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -39,11 +41,19 @@ const SalesAmountPrint = ({ openModel }) => {
 
 
      // Print Page
-     const handlePrint = () => {
+     const handlePrint = async() => {
       if (totalAmount === '' || cashAmount === '' || spanAmount === '' || tenderAmount === '' || change === '') {
         openSnackbar('Please fill all the fields');
         return;
       }
+
+        try {
+        const deleteResponse = await newRequest.delete(`/deleteRecordBySerialNo?serialNo=${serialNo}`);
+          console.log(deleteResponse);
+    
+        } catch (err) {
+          console.log(err);
+        }
 
         const printWindow = window.open('', 'Print Window', 'height=400,width=800');
           const html = '<html><head><title>Test</title>' +
@@ -90,6 +100,7 @@ const SalesAmountPrint = ({ openModel }) => {
 
             // }
           };
+          
     
 
   return (

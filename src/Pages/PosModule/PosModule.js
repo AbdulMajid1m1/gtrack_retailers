@@ -9,6 +9,7 @@ import SalesAmountPrint from "./SalesAmountPrint";
 
 const PosModule = () => {
   const [barcode, setBarcode] = useState("");
+  const [serialNo, setSerialNo] = useState("");
   const [responseData, setResponseData] = useState([]);
   const [qty, setQty] = useState(1);
   const { openSnackbar } = useContext(SnackbarContext);
@@ -48,6 +49,7 @@ const PosModule = () => {
 
   const handleBlur = async () => {
     if (!barcode) return;
+    setSerialNo(barcode);
     try {
       const response = await newRequest.get(
         `/getGs1ProdProductsbyBarcode?barcode=${barcode}`
@@ -280,7 +282,7 @@ const PosModule = () => {
                   // onClick={toggleModal}
                   >
                     {/* I call the popup Component their */}
-                    <SalesAmountPrint />
+                    <SalesAmountPrint serialNo={serialNo}/>
                   </div>
                   <div className="h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-black">
                     F-8 Z-Report
