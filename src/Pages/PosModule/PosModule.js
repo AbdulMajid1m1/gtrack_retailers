@@ -10,6 +10,7 @@ import SalesAmountPrint from "./SalesAmountPrint";
 const PosModule = () => {
   const [barcode, setBarcode] = useState("");
   const [serialNo, setSerialNo] = useState("");
+  const [cacheSerialNo, setCacheSerialNo] = useState("");
   const [responseData, setResponseData] = useState([]);
   const [qty, setQty] = useState(1);
   const { openSnackbar } = useContext(SnackbarContext);
@@ -48,18 +49,36 @@ const PosModule = () => {
   }, [responseData]);
 
   const handleBlur = async () => {
-    if (!barcode) return;
-    setSerialNo(barcode);
+    if (!serialNo) return;
+    console.log(serialNo);
+    setCacheSerialNo(serialNo);
+
     try {
+
+      const serialNoRes = await newRequest.get('/getControlledSerialBySerialNo?serialNo=' + serialNo);
+      console.log(serialNoRes?.data?.data);
+      if (serialNoRes?.data?.length === 0) {
+        openSnackbar("No data found! in controlled serial", "error");
+        return;
+      }
+
+      const GtinBarcode = serialNoRes?.data?.data[0]?.GTIN;
+      console.log(GtinBarcode);
+      if (!GtinBarcode) {
+        openSnackbar("No barcode found!", "error");
+        return;
+      }
+
+
       const response = await newRequest.get(
-        `/getGs1ProdProductsbyBarcode?barcode=${barcode}`
+        `/getGs1ProdProductsbyBarcode?barcode=${GtinBarcode}`
       );
       let data = response?.data[0];
       console.log(response?.data);
 
-      
+
       const productContentRes = await newRequest.get(
-        `/getProductContentByGtin/${barcode}`
+        `/getProductContentByGtin/${GtinBarcode}`
       );
       console.log(productContentRes);
       let produectContentData = productContentRes?.data[0];
@@ -71,12 +90,12 @@ const PosModule = () => {
 
       setResponseData((prev) => {
         // Check if barcode already exists
-        const barcodeExists = prev.some((item) => item.barcode === barcode);
+        const barcodeExists = prev.some((item) => item.barcode === GtinBarcode);
 
         if (barcodeExists) {
           // If barcode exists, update the qty of the existing item
           return prev.map((item) =>
-            item.barcode === barcode
+            item.barcode === GtinBarcode
               ? { ...item, qty: item.qty + parseFloat(qty) }
               : item
           );
@@ -86,14 +105,16 @@ const PosModule = () => {
         }
       });
 
-      setBarcode("");
+
+      setSerialNo("");
       setQty(1);
     } catch (error) {
       openSnackbar(
         error?.response?.data?.message ?? "something went wrong!",
         "error"
       );
-      console.log("Error fetching data:", error);
+
+      console.log(error);
       setResponseData([]);
     }
   };
@@ -182,8 +203,8 @@ const PosModule = () => {
                   <input
                     type="text"
                     className="h-8 w-full text-center border border-gray-400 bg-yellow-300"
-                    onChange={(e) => setBarcode(e.target.value)}
-                    value={barcode}
+                    onChange={(e) => setSerialNo(e.target.value)}
+                    value={serialNo}
                     onBlur={handleBlur}
                   />
                   <input
@@ -282,7 +303,7 @@ const PosModule = () => {
                   // onClick={toggleModal}
                   >
                     {/* I call the popup Component their */}
-                    <SalesAmountPrint serialNo={serialNo}/>
+                    <SalesAmountPrint serialNo={cacheSerialNo} />
                   </div>
                   <div className="h-auto w-auto text-center text-white rounded-sm font-semibold px-4 py-5 bg-black">
                     F-8 Z-Report

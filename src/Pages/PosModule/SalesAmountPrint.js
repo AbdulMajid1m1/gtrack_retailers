@@ -12,7 +12,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
   const [change, setChange] = useState('');
   const { openSnackbar } = useContext(SnackbarContext);
   console.log(serialNo);
- 
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -25,7 +25,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
   // Event listener for F3 key press
   const handleKeyPress = (event) => {
     if (event.key === 'F3') {
-        toggleModal();
+      toggleModal();
     }
   };
 
@@ -40,68 +40,70 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
 
 
 
-     // Print Page
-     const handlePrint = async() => {
-      if (totalAmount === '' || cashAmount === '' || spanAmount === '' || tenderAmount === '' || change === '') {
-        openSnackbar('Please fill all the fields');
-        return;
-      }
+  // Print Page
+  const handlePrint = async () => {
+    if (totalAmount === '' || cashAmount === '' || spanAmount === '' || tenderAmount === '' || change === '') {
+      openSnackbar('Please fill all the fields');
+      return;
+    }
 
-        try {
-        const deleteResponse = await newRequest.delete(`/deleteRecordBySerialNo?serialNo=${serialNo}`);
-          console.log(deleteResponse);
-    
-        } catch (err) {
-          console.log(err);
-        }
+    try {
+      const deleteResponse = await newRequest.delete(`/deleteRecordBySerialNo?serialNo=${serialNo}`);
+      console.log(deleteResponse);
+      openSnackbar('Controlled Item Deleted Successfully');
 
-        const printWindow = window.open('', 'Print Window', 'height=400,width=800');
-          const html = '<html><head><title>Test</title>' +
-            '<style>' +
-            // '@page { size: 4in 6in; margin: 0; }' +
-            '@page { size: 80mm auto; margin: 0; }' +
-            'body { font-size: 27px;}' +
-            '#header {text-align: center; padding: 10px;}' +
-            '#customer {padding-left: 15px; font-Weight: 600;}' +
-            '#customer-data {display: flex; padding-left: 15px; gap: 30px; margin-top: -30px; font-Weight: 500; }' +
-            '#customer-name {font-Weight: 600;}' +
-            '#inside-border-data {border: 1px solid black; height: 200px; margin-top: -10px; width: 100%;}' +
-            // '#customer-title {font-size: 25px;}' +
-            '#description {display: flex; justify-content: space-between; padding-left: 35px; padding-right: 35px; gap: 30px; margin-top: -20px; font-Weight: 600;}' +
-            '#inside-description {display: flex; justify-content: space-between; padding-left: 35px; padding-right: 35px; gap: 30px; margin-top: -20px; font-Weight: 400;}' +
-            '#last-data {margin-top: -20px; font-Weight: 600;}' +
-            '#inside-last-data {display: flex; justify-content: space-between; padding-left: 35px; padding-right: 35px; gap: 30px; margin-top: -25px; font-Weight: 600;}' +
-            // '#qrcode {display: flex; justify-content: center; align-items: center; margin-top: -20px; height: 200px; width: 300px;}' +
-            '</style>' +
-            '</head><body>' +
-            '<div style="">' +
-            '</div>' +
-            '<div style="">' +
-            '<div id="barcode"></div>' +
-            '</div>' +
-            '<div id="qrcode"></div>' +
-            '<p id="parag"></p>' +
-            '</body></html>';
-    
-          printWindow.document.write(html);
-          const barcodeContainer = printWindow.document.getElementById('barcode');
-          const barcode = document.getElementById('barcode').cloneNode(true);
-          barcodeContainer.appendChild(barcode);
-  
-              printWindow.print();
-              printWindow.close();
-    
-              // Clear the updatedRows state after printing
-              setCashAmount('');
-              setSpanAmount('');
-              setTenderAmount('');
-              setChange('');
-              setTotalAmount('');
+    } catch (err) {
+      console.log(err);
+      openSnackbar('Failed to delete Controlled Item');
+    }
 
-            // }
-          };
-          
-    
+    const printWindow = window.open('', 'Print Window', 'height=400,width=800');
+    const html = '<html><head><title>Test</title>' +
+      '<style>' +
+      // '@page { size: 4in 6in; margin: 0; }' +
+      '@page { size: 80mm auto; margin: 0; }' +
+      'body { font-size: 27px;}' +
+      '#header {text-align: center; padding: 10px;}' +
+      '#customer {padding-left: 15px; font-Weight: 600;}' +
+      '#customer-data {display: flex; padding-left: 15px; gap: 30px; margin-top: -30px; font-Weight: 500; }' +
+      '#customer-name {font-Weight: 600;}' +
+      '#inside-border-data {border: 1px solid black; height: 200px; margin-top: -10px; width: 100%;}' +
+      // '#customer-title {font-size: 25px;}' +
+      '#description {display: flex; justify-content: space-between; padding-left: 35px; padding-right: 35px; gap: 30px; margin-top: -20px; font-Weight: 600;}' +
+      '#inside-description {display: flex; justify-content: space-between; padding-left: 35px; padding-right: 35px; gap: 30px; margin-top: -20px; font-Weight: 400;}' +
+      '#last-data {margin-top: -20px; font-Weight: 600;}' +
+      '#inside-last-data {display: flex; justify-content: space-between; padding-left: 35px; padding-right: 35px; gap: 30px; margin-top: -25px; font-Weight: 600;}' +
+      // '#qrcode {display: flex; justify-content: center; align-items: center; margin-top: -20px; height: 200px; width: 300px;}' +
+      '</style>' +
+      '</head><body>' +
+      '<div style="">' +
+      '</div>' +
+      '<div style="">' +
+      '<div id="barcode"></div>' +
+      '</div>' +
+      '<div id="qrcode"></div>' +
+      '<p id="parag"></p>' +
+      '</body></html>';
+
+    printWindow.document.write(html);
+    const barcodeContainer = printWindow.document.getElementById('barcode');
+    const barcode = document.getElementById('barcode').cloneNode(true);
+    barcodeContainer.appendChild(barcode);
+
+    printWindow.print();
+    printWindow.close();
+
+    // Clear the updatedRows state after printing
+    setCashAmount('');
+    setSpanAmount('');
+    setTenderAmount('');
+    setChange('');
+    setTotalAmount('');
+
+    // }
+  };
+
+
 
   return (
     <div>
@@ -156,7 +158,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
                       htmlFor="totalAmount"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                       Total Amount
+                      Total Amount
                     </label>
                     <input
                       type="number"
@@ -173,7 +175,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
                       htmlFor="cashanoumt"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                       Cash Amount
+                      Cash Amount
                     </label>
                     <input
                       type="number"
@@ -190,7 +192,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
                       htmlFor="spanamount"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                       Span Amount
+                      Span Amount
                     </label>
                     <input
                       type="number"
@@ -207,7 +209,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
                       htmlFor="tenderamount"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                       Tender Amount
+                      Tender Amount
                     </label>
                     <input
                       type="number"
@@ -224,7 +226,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
                       htmlFor="change"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                       Change
+                      Change
                     </label>
                     <input
                       type="number"
@@ -243,7 +245,7 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
                   >
                     Submit Invoice
                   </button>
-                  
+
                 </form>
               </div>
             </div>
@@ -254,88 +256,88 @@ const SalesAmountPrint = ({ openModel, serialNo }) => {
 
 
 
-        {/* Print code */}
-         <div id="barcode">
-              <div id="barcode" className='hidden'>
-                    <div>
-                        <p id='header'>Sales Invoice</p>
-                    </div>
-                    
-                    <p id='customer'>Customer</p>
-                    
-                    <div id='customer-data'>
-                        <p id='customer-name'>VAT#</p>
-                        <p id='customer-title'>0</p>
-                    </div>
+      {/* Print code */}
+      <div id="barcode">
+        <div id="barcode" className='hidden'>
+          <div>
+            <p id='header'>Sales Invoice</p>
+          </div>
 
-                    <div id='customer-data'>
-                        <p id='customer-name'>Receipt</p>
-                        <p id='customer-title'>123456789</p>
-                    </div>
+          <p id='customer'>Customer</p>
 
-                    <div id='customer-data'>
-                        <p id='customer-name'>Date</p>
-                        <p id='customer-title'>30/9/2023</p>
-                    </div>
+          <div id='customer-data'>
+            <p id='customer-name'>VAT#</p>
+            <p id='customer-title'>0</p>
+          </div>
 
-                    <div id='customer-data'>
-                        <p id='customer-name'>Customer</p>
-                        <p id='customer-title'>EX01000003</p>
-                    </div>
+          <div id='customer-data'>
+            <p id='customer-name'>Receipt</p>
+            <p id='customer-title'>123456789</p>
+          </div>
 
-                    <div id='customer-data'>
-                        <p id='customer-name'>Name:</p>
-                        <p id='customer-title'>EXCHANGE SALES</p>
-                    </div>
-                    <hr />
-                    <div id='description'>
-                        <p>Description</p>
-                        <p>Qty</p>
-                        <p>Price</p>
-                        <p>Total</p>
-                    </div>
-                    <div id='inside-border-data'>
-                      <div id='inside-description'>
-                        <p>Safely Shoe</p>
-                        <p>1.00</p>
-                        <p>240.00</p>
-                        <p>{tenderAmount}</p>
-                      </div>
-                    </div>
+          <div id='customer-data'>
+            <p id='customer-name'>Date</p>
+            <p id='customer-title'>30/9/2023</p>
+          </div>
+
+          <div id='customer-data'>
+            <p id='customer-name'>Customer</p>
+            <p id='customer-title'>EX01000003</p>
+          </div>
+
+          <div id='customer-data'>
+            <p id='customer-name'>Name:</p>
+            <p id='customer-title'>EXCHANGE SALES</p>
+          </div>
+          <hr />
+          <div id='description'>
+            <p>Description</p>
+            <p>Qty</p>
+            <p>Price</p>
+            <p>Total</p>
+          </div>
+          <div id='inside-border-data'>
+            <div id='inside-description'>
+              <p>Safely Shoe</p>
+              <p>1.00</p>
+              <p>240.00</p>
+              <p>{tenderAmount}</p>
+            </div>
+          </div>
 
 
-                    {/* Last data */}
-                    <div id='last-data'>
-                        <div id='inside-last-data'>
-                            <p>Gross</p>
-                            <p>Arabic</p>
-                            <p>{totalAmount}</p>
-                        </div>
+          {/* Last data */}
+          <div id='last-data'>
+            <div id='inside-last-data'>
+              <p>Gross</p>
+              <p>Arabic</p>
+              <p>{totalAmount}</p>
+            </div>
 
-                        <div id='inside-last-data'>
-                            <p>VAT#</p>
-                            <p>Arabic</p>
-                            <p>{spanAmount}</p>
-                        </div>
+            <div id='inside-last-data'>
+              <p>VAT#</p>
+              <p>Arabic</p>
+              <p>{spanAmount}</p>
+            </div>
 
-                        <div id='inside-last-data'>
-                            <p>Paid Amount:</p>
-                            <p>Arabic</p>
-                            <p>{cashAmount}</p>
-                        </div>
+            <div id='inside-last-data'>
+              <p>Paid Amount:</p>
+              <p>Arabic</p>
+              <p>{cashAmount}</p>
+            </div>
 
-                        <div id='inside-last-data'>
-                            <p>Change Amount:</p>
-                            <p>Arabic</p>
-                            <p>{change}</p>
-                        </div>
-                    </div>
-                    
-                    {/* <div>
+            <div id='inside-last-data'>
+              <p>Change Amount:</p>
+              <p>Arabic</p>
+              <p>{change}</p>
+            </div>
+          </div>
+
+          {/* <div>
                       <QrCode id="qrcode"/>
                     </div> */}
-               </div>
-          </div>
+        </div>
+      </div>
 
     </div>
   );
