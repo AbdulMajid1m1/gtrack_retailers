@@ -55,6 +55,7 @@ const PosModule = () => {
       let data = response?.data[0];
       console.log(response?.data);
 
+      
       const productContentRes = await newRequest.get(
         `/getProductContentByGtin/${barcode}`
       );
